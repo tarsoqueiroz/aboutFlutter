@@ -1535,31 +1535,814 @@ Nesta aula, nós estudamos:
 
 ### Repetições com o while
 
+Já vimos condicionais, variáveis booleanas, expressões lógicas, os símbolos "&&" e "||" e seus significados, "e" e "ou".
+
+Podemos partir para um novo paradigma na programação, em basicamente todas as linguagens, os laços de repetição. O Dart também precisará deles para funcionar.
+
+Criaremos um novo arquivo com o nome de "testaWhile.dart". Escreveremos a estrutura básica e começaremos o programa criando um int contador = 0. Um contador é muito utilizado na programação para somar valores de forma sequencial. Por exemplo, de 0, o contador deverá passar para 1, de 2 para 3 e assim por diante. Podemos fazer isso usando uma ferramenta chamada while, que em Inglês significa "enquanto"
+
+Ela realizará algumas operações enquanto uma condição for verdadeira. Enquanto estivermos respirando, absorveremos ar para nos manter vivos. Ou seja, enquanto a respiração for uma condição verdadeira, ela manterá nosso corpo saudável e vivo. No nosso código usaremos como condição enquanto o contador for diferente de 10 while(contador != 10).
+
+Para falar de mais um símbolo "!=" significa "dferente". ao contrário de "==", que significa igual. Tudo que for colocado dentro das chaves depois do while será repetido enquanto essa condição for verdadeira. Se analisarmos nosso programa no momento em que está agora, com o contador no 0, quando passarmos pelo while o 0 será diferente de 10, então será uma condição verdadeira.
+
+No corpo de while imprimiremos o valor de contador e o valor da variável que está no contador
+
+```Dart
+void main(){
+    int contador = 0;
+
+    while(contador != 10) {
+        print("O valor do contador é $contador");
+    }
+}
+```
+
+Salvaremos esse programa e executaremos com dart testaWhile.dart , já sabendo que não funcionará conforme o esperado. O programa vai executar mas imprimirá "O valor do contador é 0" inúmeras vezes. Caso isso aconteça, bastará pressionar "Ctrl + C" no teclado com o terminal aberto e o programa vai parar de executar.
+
+Em todo o terminal só terá isso escrito, pois enquanto esse valor for 0 e 0 for diferente de 10, será isso o que imprimiremos na tela como o programa está fazendo.
+
+Adicionaremos a soma do contador, pois ele precisa mudar de valor. Usando "++", que significa "+1", faremos contador++. Assim, toda vez que o programa encontrar uma variável seguida de "++", ele adicionará "+1" ao valor do contador. Independentemente das variáveis serem int ou double, será adicionado "+ 1" aos valores numéricos.
+
+Então a princípio o contador será 0. Quando ele entrar no while, a primeira vez que executar vai ser "0+1". Então o processo se repetirá, voltando para o while com o contador agora valendo 1 e imprimirá com o contador valendo 1. Chegando à linha do contador++, será somado mais 1 novamente ao contador, que já valia 1. Ele passará a valer 2 e voltará para o while com o valor 2, e assim por diante.
+
+```Dart
+void main(){
+    int contador = 0;
+
+    while(contador != 10) {
+        print("O valor do contador é $contador");
+        contador++;
+    }
+}
+```
+
+Salvaremos o programa, voltaremos para o terminal e executaremos. Dessa vez as impressões foram do valor 0 até o 9 do contador. Por que não até o 10?
+
+Como estamos fazendo uma comparação para saber se o número é != de 10 (diferente), quando o valor do contador assumir o valor 10, ele voltará para o while e fará a comparação se 10 é diferente de 10. Como não é o caso, são valores iguais, a expressão não será mais verdadeira, então sairemos do programa.
+
+Escreveremos o print("Finalizando o programa") para quando isso ocorrer e veremos a repetição ocorre dentro das chaves do while mas depois delas, o programa continuará executando. A repetição, no entanto, só acontecerá enquanto a condição estabelecida for verdadeira. Na sequência o programa segue normalmente.
+
+Para poder ir até 10 e não até 9 como estávamos indo podemos colocar um símbolo de menor ou igual (<=) no contador do while que garantirá que o 10 entre.
+
+```Dart
+void main(){
+    int contador = 0;
+
+    while(contador <= 10) {
+        print("O valor do contador é $contador");
+        contador++;
+    }
+
+    print("Finalizando o programa");
+}
+```
+
+Executaremos o programa e dessa vez as impressões irão até o 10. Na última linha, após a impressão do contador de valor 10, leremos a mensagem colocada para avisar que o programa está finalizando. Sendo assim, ele não finaliza o programa antes de passar por todos os valores, de 0 até 10.
+
+Temos outra forma de trabalhar com while. Vamos apagá-lo e substitui-lo por do, outra palavra reservada do Dart, que significa "faça", ou seja, "faça" tudo que estiver entre chaves enquanto uma condição do while que adicionaremos ao fim, for verdadeira. "Faça", no caso, será imprima o valor do contador, some "+!" ao valor do contador, verifique se a condição ainda é verdadeira e repita o procedimento enquanto a condição for verdadeira.
+
+```Dart
+void main(){
+    int contador = 0;
+
+    do{
+        print("O valor do contador é $contador");
+        contador++;
+    }while(contador <= 10);
+
+    print("Finalizando o programa");
+}
+```
+
+Vamor executar o programa novamente e notaremos que nada mudou. Mas então por que usar o do e não apenas o while que exige escrever menos?
+
+Porque ambos são realmente diferentes. Usar só o while(contador <= 10) em cima faz a verificação antes de entrar no que ele precisa fazer, imprimir e somar. No caso do do/while verifica após ele fazer uma vez.
+
+Isso importa porque digamos que o valor do contador fosse 11. O programa nem deveria fazer a impressão, já que a condição é o contador ser menor ou igual a 10. Porém, vamos alterar para int contador = 11 e rodar o código com o do...while.
+
+A impressão não se importará com a condição. Leremos que o contador é igual a 11 e em seguida a mensagem "Finalizando o programa". O mesmo não acontecerá usando o while na parte de cima, pois antes de imprimir ele garante que o valor da variável seja verificado.
+
+Não significa que o uso de um é melhor do que o do outro, mas são diferentes os casos de uso. portanto ambos serão úteis para suas finalidades.
+
 ### Faça como eu fiz na aula
+
+Em um programa de computador, nem sempre podemos contar com nossa capacidade de realizar operações manualmente, pois volta e meia encontramos uma situação que nos custaria muito tempo para realizar.
+
+A função do comando while é repetir operações uma quantidade definida ou indefinida de vezes, sem perder muito tempo escrevendo várias vezes as operações que quisermos realizar. O entendimento desse comando traz um novo nível de complexidade ao nosso programa.
+
+A forma de incluir um while em seu programa é:
+
+```Dart
+while (condição) {
+    // operações
+}
+```
+
+Enquanto a condição do while for verdadeira, o programa vai repetir as operações no lugar indicado entre as chaves ({ }). No momento em que a condição se tornar falsa, o programa vai sair desse bloco de código do while e dará continuidade ao fluxo normal do programa.
+
+Vamos criar uma variável contadora, que será responsável de contar de 1 até 10 em nosso programa:
+
+```Dart
+void main() {
+int contador = 0;
+
+while (contador <= 10) {
+    print(“O valor do contador é $contador”);
+}
+}
+```
+
+Esse código, do jeito que se encontra, vai apenas repetir a linha O valor do contador é 0 várias e várias vezes em nosso terminal. O motivo de isso acontecer é porque nós criamos um loop infinito.
+
+Um loop infinito é o que chamamos de um laço de repetição sem condição de saída. Apesar de termos colocado nossa condição no while como contador <= 10, nós não fazemos nada com essa variável. Ela sempre vai permanecer com o valor 0, impossibilitando o programa de ser finalizado.
+
+Este é um problema clássico em programas que não são bem produzidos. Sabe um dos motivos de o seu computador travar ou demorar demais pra responder? Por trás, seu computador pode estar parado justamente em um loop infinito e não sai desse loop porque a condição de saída dele nunca é atingida.
+
+Podemos arrumar esse programa alterando o valor da variável contador durante a execução do while.
+
+```Dart
+void main() {
+    int contador = 0;
+
+    while (contador <= 10) {
+        print(“O valor do contador é $contador”);
+        contador++;
+    }
+}
+```
+
+Agora, sim, esse programa está completo e funcionando corretamente.
 
 ### Diferença entre do/while
 
+Nós vimos que existem dois métodos de escrever o while. São eles:
+
+```Dart
+while( condição ) {
+
+}
+```
+
+e
+
+```Dart
+do {
+
+} while( condição );
+```
+
+Quais situações devemos utilizar um em vez do outro? Isso é uma questão de gosto, pois os dois funcionam exatamente da mesma forma. A diferença é que na forma do/while, as operações são executadas antes de a condição ser verificada, enquanto no formato em que apenas o while está presente, as operações são executadas apenas depois de a condição ser verificada.
+
+Isso se traduz de forma prática em programas que realizam certos tipos de operação que não deveriam, caso seja utilizado o do/while. Veja um exemplo disso:
+
+```Dart
+void main() {
+    double valor = 100;
+
+    do{
+        print(“Esse é um comando muito perigoso. Não imprima isso!”);
+        valor = valor / 2;    
+    }while(valor < 100);
+}
+```
+
+O Esse é um comando muito perigoso. Não imprima isso! se repetiria várias e várias vezes, pois a primeira execução garante que a segunda execução atenda a condição para continuar executando.
+
+Veja o mesmo programa agora, utilizando apenas o while:
+
+```Dart
+void main() {
+    double valor = 100;
+
+    while(valor < 100){
+        print(“Esse é um comando muito perigoso. Não imprima isso!”);
+        valor = valor / 2;    
+    }
+}
+```
+
+Desta forma, o “comando muito perigoso” não seria executado nenhuma vez.
+
+Isso não significa que o do/while seja pior que o while, pois o mesmo exemplo pode ser usado, mas com um “comando muito importante que precisa ser executado”, fazendo o do/while o comando que vai garantir que tudo funcione corretamente:
+
+```Dart
+void main() {
+    double valor = 100;
+
+    do{
+        print(“Esse é um comando muito importante. Não deixe de imprimir isso!”);
+        valor = valor / 2;    
+    }while(valor < 100);
+}
+```
+
 ### Diminuindo valores
+
+Paulo quer expandir seus conhecimentos utilizando o while e, por isso, decidiu escrever o seguinte código:
+
+void main() {
+    int contador = 100;
+
+    while(???) {
+        ???
+    }
+
+    print(“O valor de contador é $contador.”);
+}COPIAR CÓDIGO
+Quais as respectivas linhas de código que Paulo deve colocar nos dois ??? para que seu programa imprima o valor 25 ao ser executado?
+
+- contador < 25 e contador++;
+- **contador != 25 e contador = contador - 1;**
+    - ***Correto! O while vai parar de executar assim que o valor de contador for igual a 25, e dentro das chaves do while estamos diminuindo o valor de contador, muito bem!***
+- contador == 25 e contador--;
+- **contador > 25 e contador--;**
+    - ***Correto! Assim como contador++ aumenta o valor da variável contador em 1, contador-- faz o contrário, diminuindo seu valor em 1.***
 
 ### Repetições com o for
 
+Agora que vimos o while, vamos partir para um tema um pouco mais complicado.
+
+O for fará praticamente o mesmo, mas ele é mais utilizado e entenderemos por quais motivos isso ocorre.
+
+Criaremos um novo arquivo e salvaremos oom o nome de "testaFor.dart", escrevendo novamente nossa estrutura básica. for, do Inglês, significa "para". Vamos repetir e executar vários comandos novamente várias vezes. Faremos o mesmo exemplo feito anteriormente com while.
+
+O for, porém, funciona diferentemente. Enquanto no while damos apenas uma condição ou um conjunto de condições usando o e (&&) e o ou (||), aqui teremos que passar três itens para o for. Tais itens estarão separados por pontos e vírgulas (;). O primeiro deles será a variável que vamos observar dentro do nosso for. A segunda, será a mesma condição que já colocamos dentro do while em momentos anteriores. A terceira será o que fazer com essa variável.
+
+Enquanto o for estiver executando, toda vez que ele chegar ao final da execução e todos os comandos que colocamos dentro dele terminarem, precisaremos dar continuidade.
+
+Se formos executar novamente, precisamos colocar dentro do for o que faremos com a variável. A variável pode ser criada dentro do for, entretanto, criando ela assim, só existirá dentro dele, o que mostraremos na prática a seguir.
+
+A condição que daremos será a do contador <= 10, a mesma do exemplo anterior, então ele continuará executando enquanto essa situação for verdadeira. O que essa variável fará toda vez que for repetida será justamente nosso contador++.
+
+Usando essas três partes do for, o editor de texto não apontará nenhum erro. Se apagarmos um ponto e vírgula, o VS Code sublinhará um dos itens próximos de onde está faltando e se passarmos o mouse por cima, ele mesmo apontará no alerta que é esse o problema, pois a linguagem entende que precisa dos três itens separados duas vírgulas nos parênteses do for.
+
+Vamos colocar um print() no corpo, "O valor do contador é $contador".
+
+```Dart
+void main () {
+//for (variável ; condição ; o que fazer com essa variável)
+    for(int contador = 0; contador <=10; contador++){
+    print("O valor do contador é $contador");
+    }
+}
+```
+
+Salvaremos e executaremos com "dart testaFor.dart". Notaremos que a propriedade será a mesma do programa feito com o while. O contador começará com 0, irá até o 10, soma "+1" a variável em todas as execuções e só imprime a frase que determinamos.
+
+Para terminar, colocaremos ainda print("Finalizando o programa"), para mostrar que tudo que estiver fora das chaves do for é completamente desconsiderado, não é executado.
+
+Voltaremos ao terminal, executaremos novamente, o contador irá até o 10 e por fim, finalizaremos nosso programa.
+
+Sendo assim, o for necessariamente vai precisar dos 3 itens nos parênteses, caso contrário não funcionará. Mas esses itens não necessariamente precisam estar explícitos, escritos.
+
+Removeremos tudo que está dentro do for, deixando ele vazio com os pontos e vírgulas for( ; ; ). Executando o programa assim, veremos no terminal a mensagem "Repetindo" ininterruptamente. Teremos entrado num caso de loop infinito. Ele acontece quando não damos uma condição de saída para o loop.
+
+Então, não há nada que faça o for parar de executar, mas simbolicamente, ainda haverá três partes nos parênteses. se deixarmos apenas um ponto e vírgula e espaços, como se houvesse 2 itens, ele não funcionará.
+
+Antes de finalizar o programa, escreveremos o print "Finalizando o programa com o valor no contador $contador". Entretanto, não conseguiremos usar a variável fora do for. Se clicarmos sobre essa variável que tentamos escrever, será alertado que o nome do contador é indefinido, porque ele não existe. Isso se deve a ele ter sido declarado dentro do for, portanto quando o for acaba, ele também deixa de existir,
+
+Resolveremos isso criando a variável fora do for fazendo int contador = 0 no começodo código. Dentro do for podemos simplesmente usar o contador declarado anteriormente e para o qual já foi atribuído um valpr. Assim não teremos mais erros para imprimi-lo na hora de finalizar o programa.
+
+```Dart
+void main () {
+//for (variável ; condição ; o que fazer com essa variável)
+    int contador = 0;
+
+    for(contador; contador <=10; contador++){
+        print("O valor do contador é $contador");
+    }
+    print("Finalizando o programa com o valor do contador:  $contador");
+}
+```
+
+Executando esse programa, o contador finalizará com o valor 11, conforme o esperado, pois antes de executar, ele somou novamente.
+
+Também há a possibilidade de não atribuirmos valor ao contador. Se não atribuirmos valor, teremos que inicializá-lo dentro do for. Caso contrário, deixando apenas contador na declaração da variável e no for, quando executamos temos um erro no terminal porque nós não demos um valor que justifique utilizá-la, nem estamos tentando comparar nada com 10. Portanto, será fundamental atribuir algum valor.
+
+Um contador valendo 0, enquanto for menor que 10, vai somar "+1" a seu valor até chegar no 10 e vai imprimir o valor do contador. Chegando a 10, ele vai sair desse trecho do código.
+
+Podemos fazer o contrário também. Dentro do for ele poderá ter um valor mais alto. Enquanto o valor do contador for maior ou igual a 0, poderemos diminuir o valor dele ] Além do "++" que servirá para somar 1 à variável de valor, também teremos o "--", para diminuir 1.
+
+Então, começando com o contador no valor 10, se o contador for maior ou igual a 0, removeremos um númer do contador.
+
+```Dart
+void main () {
+//for (variável ; condição ; o que fazer com essa variável)
+    int contador 
+
+    for(contador = 10; contador >=0; contador--){
+        print("O valor do contador é $contador");
+    }
+    print("Finalizando o programa com o valor do contador:  $contador");
+}
+```
+
+Voltaremos para o terminal e veremos que o programa vai de 10 até 0 e além de tudo, ele finaliza com "-1". Isso porque ele executa mais uma vez, verifica e sai do for.
+
 ### Diferenças entre while e for
+
+Agora que vimos tanto o while quanto o for, como distinguimos quando devemos usar um em vez do outro?
+
+Na prática, a maioria dos programadores do mundo utilizam mais o for por um motivo especial: ele permite a criação e manipulação de uma variável utilizada exclusivamente dentro do próprio for, a fim de escreverem um código mais conciso e agrupando as informações importantes em um local só.
+
+Veja o exemplo a seguir, que utiliza o while para contar carneirinhos:
+
+```Dart
+void main () {
+    int contador = 1;
+    while (contador < 99) {
+        print(“zZz $contador carneirinhos zZz”);
+        contador++;
+    }
+}
+```
+
+E o mesmo exemplo, mas dessa vez utilizando for:
+
+```Dart
+void main () {
+    for ( int contador = 1; contador < 99; contador++) {
+        print(“zZz $contador carneirinhos zZz”);
+    }
+}
+```
+
+Em comparação, não precisamos escrever menos código em si, mas a forma que escrevemos o for facilita a digitação e não precisamos declarar variáveis nas linhas anteriores nem lidar com modificar a variável nas linhas posteriores. Fazemos tudo em uma linha só e, consequentemente, escrevemos menos linhas.
+
+No fundo, o for e o while funcionam exatamente da mesma forma, portanto, utilize sempre aquele que você tiver mais familiaridade.
 
 ### Somando tudo
 
+Luiz, um aluno da Alura, foi desafiado por um colega a somar todos os números de 1 até 1000, incluindo 1 e 1000. Luiz sabe que se ele quiser encontrar esse valor, vai ter que fazer muitos cálculos em sua calculadora.
+
+No entanto, Luiz se lembrou de que aprendeu no curso de Dart como poderia fazer um programa que resolvesse esse problema para ele.
+
+Quais desses programas vai encontrar o resultado para Luiz?
+
+- **A**
+
+```Dart
+void main() {
+ int soma = 0;
+ int contador = 1;
+ do {
+   soma = soma + contador;
+   contador++;
+ } while(contador < 1000);
+ print(soma);
+} 
+```
+
+- **B**
+
+```Dart
+void main() {
+ int soma = 0;
+  for(int i = 1; i <= 1000; i++) {
+   soma = soma + i;
+ }
+ print(soma);
+}
+```
+
+  - ***Correto! Esta alternativa utiliza o laço de repetição for de maneira correta para encontrar o valor buscado.***
+
+- **C**
+
+```Dart
+void main() {
+ int soma = 0;
+ int contador = 1;
+ while(contador != 1001) {
+   soma = soma + contador;
+   contador++;
+ }
+ print(soma);
+}
+```
+
+  - ***Correto! O while vai parar de executar assim que o valor de contador for igual a 1001, efetivamente somando todos os números até o 1000.***
+
 ### Reduções de operações
+
+Você sabia que existem algumas operações no Dart que podem ser reduzidas?
+
+Assim como variavel++ é uma redução de variavel = variavel + 1, o Dart nos permite fazer algumas reduções com outras operações:
+
+- variavel++ substitui variavel = variavel + 1
+- variavel-- substitui variavel = variavel - 1
+- variavel += outraVariavel substitui variavel = variavel + outraVariavel
+- variavel -= outraVariavel substitui variavel = variavel - outraVariavel
+- variavel *= outraVariavel substitui variavel = variavel * outraVariavel
+- variavel /= outraVariavel substitui variavel = variavel / outraVariavel
 
 ### Repetições com repetições
 
+Agora veremos algo mais prático, que conseguimos aplicar da forma que aplicaríamos na vida real.
+
+Criaremos um novo programa e vamos salvá-lo como "tabuada.dart". Será um bom exemplo para demonstrar o poder dos laços de repetição porque será possível notar que programas que exigem muitos cálculos ou muitas ações que precisam ser efetuadas várias vezes nos tomam muito tempo se fizermos um de cada vez, então precisamos deixar que o programa faça isso por nós.
+
+Por exemplo, se fôssemos fazer a tabuada do 1:
+
+```Dart
+void main() {
+    int variavel1 = 1*1;
+    int variavel2 = 1*2;
+    int variavel3 = 1*3;
+}
+```
+
+Seria trabalhoso, gastaria tempo e poderíamos cometer erros escrevendo a tabuada toda desse modo. Poderíamos deixar o computador fazer isso por nós utilizando o for. Como foi dito anteriormente, ele precisará de 3 partes, sendo a primeira a variável que ele vai observar.
+
+Usaremos uma variável chamada contador, atribuindo o valor de 1 para ele. Enquanto esse contador for menor ou igual a 10 ele somará mais 1 em toda a execução.
+
+Vamos imprimir o valor da nossa multiplicação que vai ser a tabuada o 1, "1 * $contador = $contador", porque a tabuada do 1 é o número 1 vezes algum valor que é igual ao próprio valor, já que todo número vezes 1 é igual a ele mesmo.
+
+Essa será uma tabuada aceitável, mas dessa forma, com o contador no lugar do resultado, o código funcionará apenas para a tabuada do 1. Criaremos uma variável de resultado int resultado = 1 * contador e no print, faremos `"1 * $contador = $resultado".
+
+```Dart
+void main() {
+    for(int contador = 1;contador<=10;contador++){
+    int resultado = 1 * contador;
+    print("1 * $contador =  $resultado");
+    }
+}
+```
+
+Vamos executar no terminal e executaremos o programa tabuada. teremos impressa a tabuada do 1, com "1 * 1 = 1", "1 * 2 = 2" e assim por diante a cada linha até o 10.
+
+Se quisermos a tabuada do 2, bastará mudarmos o valor atribuído à variável resultado,int resultado = 2 * contador e o print, "2 * $contador = $resultado"
+
+```Dart
+void main() {
+    for(int contador = 1;contador<=10;contador++){
+    int resultado = 2 * contador;
+    print("2 * $contador =  $resultado");
+    }
+}
+```
+
+Salvaremos, rodaremos no terminal e agora veremos uma tabuada de 2, "2 * 1 = 2", "2 * 2 = 4" e assim por diante a cada linha até o "2 * 10 = 20". Se tivéssemos feito do modo como pensamos primeiramente, colocando "1 * $contador = $contador", não daria certo.
+
+Expandiremos mais uma vez, tornando nosso programa mais complexo, pois criaremos um multiplicando.
+
+Dessa vez queremos uma variável que atuará como o valor 2 no nosso resultado. Criaremos automaticamente o valor que multiplicará. Usaremos outro for e colocaremos o nome da variável que vamos multiplicar alguma coisa por de multiplicando. A princípio, ele valerá 1. multiplicando será menor ou igual a 10 também, como era o contador. Por fim, somará "+1" ao valor dele mesmo em toda a execução.
+
+```Dart
+void main() {
+    for(int multiplicando = 1;multiplicando<=10;multiplicandor++){
+        print("Tabuada de multiplicando");
+
+        for(int contador = 1;multiplicando<=10;multiplicandor++)
+            print("$multiplicando * ${multiplicando * contador}");
+        }
+    }
+}
+```
+
+Fecharemos a chave depois do for. Uma nova informação será que podemos ter um for dentro de outro for, o que chamamos de laço de repetição alinhado. Colocaremos quantos for forem necessários dentro do primeiro.
+
+Sempre que ele entrar no for, o de dentro será executado primeiro, para depois executar uma vez o de fora e em seguida voltar para o de dentro.
+
+Então o multiplicando vai valer 1 vezes todos os números do for de dentro, mudará para 2 e fará 2 vezes todos os números do for de dentro e assim por diante.
+
+Substituiremos o valor 2 que tínhamos colocado no resultado para multiplicar pelo contador por multiplicando, assim como na hora de imprimir o resultado.
+
+```Dart
+void main() {
+    for(int multiplicando = 1;multiplicando<=10;multiplicandor++){
+        for(int contador = 1;multiplicando<=10;multiplicandor++)
+            int resultado = multiplicando * contador;
+            print("$multiplicando * $contador =  $resultado");
+        }
+    }
+}
+```
+
+Abrindo o terminal executaremos a tabuada novamente e dessa vez veremos a tabuada do 1 até a do 10, multiplicando por 1 a 10 também.
+
+Outra informação importante é que o Dart tem uma facilidade extra com relação a algumas linguagens de programação. Não precisamos declarar o valor desse resultado . Comentaremos a linha referente a variável resultado, mas pegaremos o multiplicando * contado e colocaremos direto na hora que formos imprimir o resultado.
+
+Se nós simplesmente substituirmos $resultado por $multiplicando * contador, com o cifrão só em multiplicando e fazendo a multiplicação direto, não funcionará. Teremos a opção de usar chaves em torno da operação, fazendo${multiplicando * contador}, para mostrar para o Dart que o que está entre chaves deverá ser calculado.
+
+Então, se tiver um cifrão e chaves na sequência dentro de uma string, o que estiver entre chaves o Dart vai calcular antes de imprimir.
+
+```Dart
+void main() {
+    for(int multiplicando = 1;multiplicando<=10;multiplicandor++){
+        for(int contador = 1;multiplicando<=10;multiplicandor++)
+            // int resultado = multiplicando * contador;
+            print("$multiplicando * ${multiplicando * contador}");
+        }
+    }
+}
+```
+
+Vamos salvar e executar e tudo funcionará, mesmo tendo comentado a linha do resultado.
+
+Também podemos escrever do lado de fora, antes de começar o segundo for, qual tabuada estamos mostrando com um print("Tabuada de multiplicando").
+
+```Dart
+void main() {
+    for(int multiplicando = 1;multiplicando<=10;multiplicandor++){
+        print("Tabuada de multiplicando")`.
+
+        for(int contador = 1;multiplicando<=10;multiplicandor++)
+            // int resultado = multiplicando * contador;
+            print("$multiplicando * ${multiplicando * contador}");
+            }
+        }
+}
+```
+
+Executando novamente no nosso terminal, estará mais fácil ler o que estamos fazendo, pois veremos a descrição antes das tabuadas "Tabuada do 1", "Tabuada do 2", etc.
+
+Podemos notar que primeiro o for de fora será executado uma vez só, depois são executadas todas as vezes do for de dentro e depois voltará a ser executado uma vez o for de fora e todas as vezes o for de dentro.
+
+Este é o padrão que laços de repetição alinhados terão.
+
 ### Fatoriais
+
+Camila aprendeu em suas aulas de matemática na escola que um fatorial é o resultado da multiplicação de todos os número entre 1 até N, onde N é um número qualquer. Ela anotou alguns exemplos em seu caderno:
+
+```Dart
+Fatorial de 2:  2 * 1 = 2
+Fatorial de 3: 3 * 2 * 1 = 6
+Fatorial de 4: 4 * 3 * 2 * 1 = 24
+...
+```
+
+Como tarefa de casa, o professor de Camila passou o seguinte exercício para ela:
+
+Qual a soma de todos os fatoriais de todos os números entre 1 e 15?
+
+Camila, uma menina muito pró-ativa, começou a fazer a lição assim que chegou em casa, mas logo se deparou com um problema: por volta do número 8, seus dedos já estavam cansados de tanto digitar em sua calculadora.
+
+Então, ela se lembra de suas aulas de Dart que está realizando na Alura, mais especificamente de que acabou de aprender a fazer laços de repetição!
+
+Camila então liga seu computador e começa a escrever o seguinte programa:
+
+```Dart
+void main() {
+    int somador = 0;
+    int fatorial = 1;
+
+    // continua...
+}
+```
+
+Qual o programa que Camila deve escrever para encontrar a resposta do problema que seu professor passou?
+
+**Opinião do instrutor**
+
+Aqui está uma possível solução para o problema:
+
+```Dart
+void main() {
+  int soma = 0;
+  int fatorial = 1;
+
+  for (int i = 1; i <= 15; i++) {
+    fatorial *= i;
+    soma += fatorial;
+  }
+
+  print("O resultado é $soma");  
+}
+```
 
 ### O break
 
+Já falamos dos nossos laços de repetição while e for, e nos dois temos uma condição de saída.
+
+Eles se repetem, se repetem e só param quando chegam a uma condição que nós colocamos. No caso do for, a condição de parada é o multiplicando ser menor ou igual a 10. No segundo for o contador precisa ser menor ou igual a 10.
+
+```Dart
+void main() {
+    for(int multiplicando = 1;multiplicando<=10;multiplicandor++){
+        print("Tabuada de multiplicando")`.
+
+        for(int contador = 1;multiplicando<=10;multiplicandor++)
+            print("$multiplicando * ${multiplicando * contador}");
+        }
+    }
+}
+```
+
+Agora vamos aprender uma nova forma de fazer nosso programa parar a execução. Criaremos um novo arquivo com o nome "testaBreak.dart" e escreveremos a estrutura básica.
+
+O break é uma palavra reservada do Dart, assim como de outras linguagens, para sair dos laços de repetição. Usaremos novamente o exemplo do contador que vai somando valores. Faremos um for em formato de laço infinito, sem nenhuma variável para observar, condição de saída, de parada. Então, ele executará for( ; ; ) indefinidamente.
+
+Logo de cara, colocaremos dentro do for o contador++ para somar ao valor da variável. Em seguida imprimiremos o valor do contador.
+
+```Dart
+void main() {
+    int contador = 0
+    for( ; ; ){
+        contador++;
+        print("O valor do contador é $contador");
+    }
+}
+```
+
+Vamos salvar e executar o programa no terminal. Veremos que o valor vai aumentar continuamente. Para forçar a parada desse programa, pressionaremos "Ctrl + C". Passaremos poucos segundos rodando esse programa e o valor passará dos 20 mil, pois não demos condição de saída.
+
+Para não entrar no loop infinito, podemos verificar o valor do nosso contador dentro do nosso for. Se o valor do contador for, por exemplo, if(contador == 123), imprimiremos "Atingi o valor 123".
+
+Então, dentro do for sendo executado várias vezes seguidas, verificaremos se o valor é 123. Quando o valor do contador for 123, ele fará uma impressão. Isso significa que meu programa vai parar e sair? Não.
+
+```Dart
+void main() {
+    int contador = 0
+    for( ; ; ){
+        contador++;
+        print("O valor do contador é $contador");
+
+        if(contador == 123){
+            print("Atingi o valor 123");
+        }
+    }
+}
+```
+
+Vamos executar novamente e não conseguiremos sair do programa no 123. Mesmo tendo colocado o print, o programa continuou rodando. Precisamos de uma forma de sair, e para isso utilizamos a palavra reservada break.
+
+O break fará a função de avisar ao programa que quando ele for alcançado é necessário parar e sair do laço. Quando o programa chega no break ele vai procurar pelo laço for a qual ele esteja mais próximo. Estando dentro do for , ele sairá.
+
+Saindo desse for, imprimirmos "Finalizando o programa" para ter certeza de que quando a mensagem aparecer na nossa tela, saímos do for.
+
+```Dart
+void main() {
+    int contador = 0
+    for( ; ; ){
+        contador++;
+        print("O valor do contador é $contador");
+
+        if(contador == 123){
+            print("Atingi o valor 123");
+            break;
+        }
+    }
+    print("Finalizando o programa.");
+}
+```
+
+Vamos executar novamente no terminal e quando o contador atingir 123 o programa imprimirá que o contador chegou a esse valor, finalizará o programa e imprimirá que foi finalizado.
+
+Então, quando o programa chega nesse trecho do if(contador == 123) ele verifica que pedimos para fazer uma parada, saindo do laço mais próximo, e finalmente vai deixar o loop para trás. Sem o break, continuaria executando indefinidamente.
+
 ### O comando switch
+
+Agora que aprendemos sobre o if, é importante aprendermos onde ele não nos ajuda. O if possui um ponto fraco, que é a quantidade e complexidade de leitura do código quando precisamos de muitos ifs.
+
+Imagine um programa que imprima em nossa tela o nome de um mês baseado no número que ele representa no calendário, por exemplo, Janeiro = 1, Fevereiro = 2 etc.
+
+Vamos escrevê-lo utilizando o if:
+
+```Dart
+void main() {
+  int mes = 8;
+
+  if (mes == 1) {
+    print("Janeiro");
+  } 
+  if (mes == 2) {
+    print("Fevereiro");
+  }
+  if (mes == 3) {
+    print("Março");
+  }
+  if (mes == 4) {
+    print("Abril");
+  }
+  if (mes == 5) {
+    print("Maio");
+  }
+  if (mes == 6) {
+    print("Junho");
+  }
+  if (mes == 7) {
+    print("Julho");
+  }
+  if (mes == 8) {
+    print("Agosto");
+  }
+  if (mes == 9) {
+    print("Setembro");
+  }
+  if (mes == 10) {
+    print("Outubro");
+  }
+  if (mes == 11) {
+    print("Novembro");
+  }
+  if (mes == 12) {
+    print("Dezembro");
+  }
+}
+```
+
+Viram como o código fica um pouco bagunçado? Para piorar, se não tratarmos de todos os casos, o programa não vai funcionar de forma esperada. Por exemplo, nós sabemos que não existe mês de número 13, mas nosso programa não. O que ele faria?
+
+Nada! E apesar de isso não ser tão preocupante neste caso, o usuário do seu programa poderia acreditar que o programa não funciona ou que o dispositivo dele tem algum problema.
+
+Felizmente, o Dart tem um comando muito legal que nos permite escrever várias opções em um formato mais compacto e fácil de ler, que ainda possui uma forma de tratar todos os casos que não caem nestas opções.
+
+Esse comando se chama switch, e esta é a forma padrão de uso:
+
+```Dart
+void main() {
+  int mes = 8;
+
+  switch(mes) {
+    case 1:
+      print("Janeiro.");
+      break;
+    case 2:
+      print("Fevereiro.");
+      break;
+    case 3:
+      print("Março.");
+      break;
+    case 4:
+      print("Abril.");
+      break;
+    case 5:
+      print("Maio.");
+      break;
+    case 6:
+      print("Junho.");
+      break;
+    case 7:
+      print("Julho.");
+      break;
+    case 8:
+      print("Agosto.");
+      break;
+    case 9:
+      print("Setembro.");
+      break;
+    case 10:
+      print("Outubro.");
+      break;
+    case 11:
+      print("Novembro.");
+      break;
+    case 12:
+      print("Dezembro.");
+      break;
+    default:
+      print("Este mês não existe!");
+      break;
+
+  }
+}
+```
+
+O comando switch permite o tratamento de vários casos diferentes de forma modular. Percebam que dentro de suas chaves ({ }) existem vários trechos de código que se repetem, alterando apenas o valor do número depois da palavra case, seguindo o seguinte padrão:
+
+```Dart
+case X:
+    Y;
+    break;
+case A:
+    B;
+    break;
+```
+
+Isso pode ser traduzido em uma frase da seguinte maneira:
+
+Caso o valor seja X, faça Y. Caso o valor seja A, faça B.
+
+Notem o break após cada comando também. Ele está lá para parar a execução do switch, caso tenha encontrado um valor buscado.
+
+E o que torna o uso do switch mais atrativo? O default. O default pode ser observado na última opção no exemplo dado, e ele é responsável por executar os comandos depois dele, caso nenhuma das opções dadas dentro do switch sejam acionadas. Nesse exemplo, ele imprime “Esse mês não existe!” em todos os casos que o switch não receba um valor entre 1 e 12.
 
 ### Conclusão
 
+Parabéns! Chegamos ao final do nosso curso de Dart.
+
+Passamos por toda a parte de sintaxe e aprendemos como estruturar um programa em Dart da forma mais básica.
+
+Aprendemos também tipos de variáveis. Variáveis inteiras, reais, strings para mexer com texto e as dynamics, que podem assumir qualquer tipo, além das que podem mudar de tipo durante a execução do programa.
+
+Vimos condicionais, aquilo que vai fazer a tomada de decisão dentro do programa. O ife o else serão utilizados para isso. Também vimos as variáveis booleanas, aquelas que armazenam verdadeiro ou falso dentro do nosso programa, o que facilita nossa produção dentro dessa tomada de decisão.
+
+Aprendemos a utilizar o e** e o **ou para reduzir a quantidade de código que escreveremos, aumentando um pouco a complexidade dessas condicionais, mas são um passo que colabora para que tenhamos maior domínio em programação.
+
+Temos os laços de repetição como o for, o while e o do/while que repetirão nosso código e seguirão uma lógica semelhante. Aplicamos isso de forma prática para fazer um programa que resolvia um problema para nós, mas é importante reforçar a necessidade de fazer os exercícios na página do curso, porque eles auxiliarão no entendimento da linguagem Dart e reforçarão o que fizemos durante as aulas.
+
+Lembrando que o fórum pode ser utilizado para tirar dúvidas, pois há instrutores sempre disponíveis para respondê-las.
+
 ### O que aprendemos?
+
+Nessa aula, nós estudamos:
+
+- O laço de repetição while.
+- O laço de repetição do/while.
+- O laço de repetição for.
+- Quando utilizamos o break.
+- As diferenças entre os laços de repetição.
 
 ## Congratulations!
 
