@@ -357,19 +357,218 @@ Vamos nos aprofundar em classes na próxima aula, onde vamos aprender um pouco m
 
 ### Nosso primeiro método
 
+[00:00] Agora que nós já sabemos que uma classe pode gerar vários objetos e esses objetos podem ser iguais ou não, vamos brincar agora com funcionalidade dessas classes.
 
+[00:12] Vamos criar uma “ContaCorrente” com “contaDaAmanda” que vai ser igual a uma “ContaCorrente();”. O que eu quero dizer por funcionalidade? Digamos que a Amanda queira sacar dinheiro. Se ela sacar no momento 20 reais, ela vai ter atingido o limite dela. Mas o Alura Bank está oferecendo 100 de cheque especial para ela. Como nós vamos adicionar essa funcionalidade na nossa conta corrente?
+
+[00:50] O cheque especial é aquilo que o banco nos dá de empréstimo, para nós irmos além do nosso limite, de 0 reais em nossa conta. Por exemplo, a Amanda tendo 20 reais e se ela quiser sacar 30, o saldo dela ficaria com -10, ela ficaria devendo 10 reais ao banco.
+
+[01:11] Como nós colocamos isso no código? Vamos começar definindo quanto vai ser o saque que a Amanda vai fazer. Vamos dizer que ela queira sacar “80.0” reais. Para verificar se essa transação vai ocorrer, nós devemos fazer “if(contaDaAmanda.saldo - saque < -100)”. Para verificar se essa transação aconteceu, nós fazemos essa verificação.
+
+[01:57] Mas isso aqui vai pegar o caso onde o saque não é permitido, porque se a conta corrente, o saldo da Amanda menos o saque, for menor do que -100, nós vamos dizer o quê? “print(“Sem saldo suficiente.”);”.
+
+[02:20] Agora, se essa operação for permitida, “else {“, nós vamos imprimir “(“Sacando $saque reais”);”. E da “contaDaAmanda” nós vamos tirar esse “saque” que ela está fazendo. Essa é a verificação para um cheque especial de -100 reais.
+
+[02:56] Vamos imprimir na linha de cima, antes de realizar essa operação, qual é (“Saldo da ${contaDaAmanda.titular}:” e aqui eu vou colocar “${contaDaAmanda.saldo}”);”. Vou copiar isso e colocar logo após a nossa operação. O que vocês acham que vai sair do nosso código se eu executar do jeito que está aqui? Ela está tentando sacar 80 reais e ela tem 20 reais, então ela deve ficar com -60, se a operação for permitida.
+
+[03:50] Abrindo o meu terminal, vou executar, “dart main.dart” e olha aqui, temos um “null”, eu esqueci de dar o nome do titular para essa conta. Então “contaDaAmanda.titular = “Amanda”;”. Muito importante não se esquecer de preencher os campos que você vai utilizar.
+
+[04:20] Executando novamente, agora sim, saldo da Amanda 20 reais, ela sacou 80 reais e o saldo dela ficou -60. Muito legal, agora nós conseguimos fazer essa verificação. Vamos testar um caso onde ela não vai conseguir sacar esse dinheiro, se ela tentar tirar 180 reais, por exemplo.
+
+[04:45] Vamos voltar ao nosso código, executar novamente e, olha só, sem saldo suficiente dessa vez, a Amanda continua com 20 reais. Então voltando no nosso código, essa é a operação que nós fazemos para retirar dinheiro da conta de Amanda, considerando um valor de cheque especial.
+
+[05:11] E se eu quiser agora criar outra conta? O Tiago vai e cria a conta dele. Vou inicializar a conta dele, vou dar um nome para a conta dele, que vai ser do “Tiago”. E agora eu quero fazer a mesma operação. Aqui vai passar a ser “saqueDaAmanda”, aqui, aqui e aqui vai ser “saqueDaAmanda”.
+
+[05:52] E o saque do Tiago vai ser outro, “saqueDoTiago”, aqui ele vai tentar sacar “90.0” reais e a Amanda vai tentar sacar “30.0”. Nós vamos fazer isso aqui mais uma vez, copia isso tudo e eu vou ter que alterar tudo isso, “contaDoTiago”, isso aqui, isso também e assim por diante, até completar todos eles. E agora, em vez de saqueDaAmanda nós vamos utilizar saqueDoTiago. Eu acho que foi todos.
+
+[06:53] Vamos voltar ao nosso terminal e executar novamente. Saldo da Amanda 20, ela tentou sacar 30, o saldo dela agora é -10. O saldo do Tiago é 20, ele tentou sacar 30 e o [SALDO] dele é -70? Temos um erro aqui.
+
+[07:15] Se nós voltarmos no meu código, eu esqueci de alterar esse saque aqui. Eu estou mostrando o saqueDaAmanda ainda na minha main, e esse é o problema de realizar a sua lógica, que mexe com variáveis da sua classe fora da sua classe.
+
+[07:36] Às vezes você vai se deparar com esse tipo de situação, onde você vai precisar alterar os campos de dentro da sua classe, mas se você ficar utilizando fora dela, toda hora você vai ter que criar uma conta e vai ter que copiar e colar isso tudo.
+
+[07:54] Nós podemos levar essa lógica toda para dentro da nossa classe, porque assim todas as contas correntes vão ter essa lógica. Quando eu falo essa lógica, eu quero dizer a lógica do saque, nesse caso. E como nós trazemos essa funcionalidade para dentro da minha classe? Nós vamos utilizar de métodos.
+
+[08:20] Métodos em uma classe são as funcionalidades dessa classe, o que essa classe pode fazer. E eu quero adicionar essa funcionalidade de saque na minha conta corrente. A primeira coisa que eu tenho que fazer é declarar o tipo dessa operação. Como assim o tipo? Assim como todas as variáveis, existe um tipo.
+
+[08:48] Por enquanto eu vou utilizar o tipo “void”. Como já disse algumas vezes, é um tipo que não tem retorno, aquilo que não tem retorno é vazio. E eu vou dar um nome para essa operação, que eu vou chamar de “saque”. Após eu escrever o tipo dessa operação, eu preciso colocar “()”, porque dentro desse “()” nós vamos colocar quais são os atributos que eu vou enviar para esse meu método. Como assim os atributos?
+
+[09:25] Por exemplo, eu quero fazer o saque, eu preciso saber de quanto é o meu saque. Então dentro desse “()” eu vou colocar “double”, porque eu estou tratando de dinheiro, eu estou usando o double nesses exemplos para mexer com dinheiro, e eu vou escrever “valorDoSaque”. Abro e fecho “{}” e dentro eu posso trazer todo esse if. O if e o else eu vou retirar da minha main e eu vou trazer aqui para dentro.
+
+[10:04] Agora que eu trouxe isso aqui para dentro, eu tenho um problema. Vocês vão notar que essas linhas vermelhas estão me dizendo que aqui tem um erro. Por que tem um erro? Porque “contaDoTiago” não existe, olha só, tente corrigir esse nome, porque ele não está definido, ele não está no escopo desse método, ou seja, contadoTiago foi declarado aqui na nossa main, mas ele não existe dentro da nossa classe. Portanto, para resolver esse problema nós precisamos pensar com objetos.
+
+[10:43] Dentro da minha classe eu quero que a minha classe em si seja referenciada por ela mesma. Quando eu quero tirar dinheiro desse saldo, eu preciso, dentro da minha classe, utilizar esse nome, essa nova palavra reservada que nós estamos utilizando pela primeira vez, o this. “this.saldo -“, eu estou referenciando esse saldo aqui, porque é o saldo dessa conta.
+
+[11:20] Menos o quê? Agora não é mais “saquedoTiago”, agora é “valorDoSaque”, porque é a quantidade de dinheiro que eu estou tentando sacar. Aqui também não é mais “saqueDaAmanda” é o “valorDoSaque” que eu estou tentando sacar. Aqui não é mais “contaDoTiago”, aqui é “this”, “-= valorDoSaque”. Agora eu tenho uma funcionalidade dentro da minha classe, que eu posso utilizar por todos os meus objetos que foram feitos a partir dessa classe.
+
+[11:59] Voltando na minha main, agora eu posso retirar essa parte da Amanda e eu vou tentar sacar dinheiro da conta dela utilizando essa minha nova funcionalidade. Por enquanto eu vou tirar essas duas variáveis de saque também, nós vamos utilizar valores diretos. Como assim diretos? Vamos ver.
+
+[12:26] Na contaDaAmanda, quando eu vou tentar movimentar dinheiro com a contaDaAmanda, eu preciso agora, para utilizar essa nova funcionalidade, escrever “.” e vocês vão notar algo novo.
+
+[12:40] Olha aqui, a minha funcionalidade, o meu método de saque está aqui e vocês vão notar que diferente de uma variável da minha classe, que tem esse quadradinho azul, o meu método tem essa caixinha roxa. Vou clicar em cima dela e o Visual Studio Code já vai preencher os resto para mim, “.saque” e ele colocou aquele “valorDoSaque” aqui dentro. E o que é o “valorDoSaque”? É quanto a Amanda está tentando sacar.
+
+[13:16] Vamos dizer que ela queira sacar 80 reais. Por termos definido que esse valor vai ser um double, eu vou colocar um double aqui dentro. E agora nós precisamos também fazer isso com a contaDoTiago. Então “contaDoTiago.”, olha o “saque” aqui, posso só clicar nele e o Visual Studio Code vai completar para mim.
+
+[13:44] Qual é o valor que o Tiago vai tentar sacar? Vamos dizer “130.0” reais, porque vai ser uma operação que não será realizada. E aqui nós vamos testar os dois casos, um onde é possível sacar e um onde não é possível sacar.
+
+[14:03] Voltando ao meu terminal, vou limpá-lo e eu vou executar novamente. E olha aqui, o saldo da Amanda antes do saque era de 20 reais, ela sacou 80 e ficou com -60. Tiago, no entanto, tinha 20, tentou sacar 130, ele não tinha saldo suficiente e ficou com 20. Então assim nós criamos uma funcionalidade para a nossa conta.
 
 ### Métodos com retorno
 
+[00:00] Agora que nós sabemos criar uma nova funcionalidade para as nossas contas, nós adicionamos esse método, o “saque”, em nossas contas correntes, nossa classe. Como nós damos continuidade a essa ideia?
+
+[00:18] Vamos agora elevar um pouco o nível desse tipo de pensamento. Nós já utilizamos aqui para fazer um saque, vamos fazer agora um depósito. Voltando na minha classe, como nós fazemos um depósito? Um depósito é apenas adicionar dinheiro em nossa conta corrente.
+
+[00:43] Nós precisamos então pensar da mesma forma como nós fizemos no nosso saque, “void”, por enquanto, “deposito()” e vamos colocar aqui “double valorDoDeposito”. Vamos abrir e fechar “{}” e dentro do meu depósito eu tenho que adicionar qual vai ser a lógica desse depósito.
+
+[01:14] Como nós estamos tentando colocar dinheiro, não há restrição alguma sobre colocar dinheiro em nossas contas, eu preciso apenas escrever “this” para referenciar esta conta corrente que nós estamos dentro, “saldo”, que é o valor onde eu vou adicionar esse dinheiro, “+= valorDoDeposito;”. É apenas isso que nós precisamos para fazer a funcionalidade do depósito.
+
+[01:52] Subindo aqui, agora nós podemos tentar de uma forma diferente. Antes de imprimir o valor de Amanda eu vou adicionar “contaDaAmanda.deposito”, olha aqui, agora nós temos acesso a esse método da nossa classe, e o “(valorDoDeposito)” eu vou tentar colocar “20.0” reais na conta da Amanda.
+
+[02:21] E na “contaDoTiago.deposito” eu vou tentar adicionar “50.0” reais. Se agora eu coloco 50 reais, essa operação vai ser permitida, porque quando eu coloco 50 reais, Tiago não vai ter mais só 20, ele terá 70, e vai ter dinheiro suficiente para fazer a operação de saque de 130 reais.
+
+[02:55] Salvei o meu código, vou voltar no meu terminal, limpar e executar. Meu programa foi executado e olha só, agora Tiago tem saldo suficiente de 70 para sacar 130 e ficar com -60. Amanda tinha 40 antes de fazer um saque de 80 e ficar com -40. Nós temos agora uma funcionalidade de depósito.
+
+[03:29] Vamos pensar agora em como nós trazemos uma função de retorno para esses nossos métodos. Como assim retorno? Nossos métodos eu escrevi com “void”, por enquanto. Esse void, como eu tinha dito, não retorna nada, mas nós podemos dar um tipo de retorno para essa operação. Aqui eu quero tentar fazer um retorno de uma variável booleana.
+
+[04:01] O tipo de retorno dos nossos métodos pode ser o que nós quisermos, desde que nós retornemos aquele tipo para a função onde ele foi chamado. No caso, se no meu saque eu quero colocar um retorno do tipo booleano, eu preciso retornar que eu tive um problema quando eu não consegui sacar esse dinheiro.
+
+[04:31] Nós vamos utilizar essa nova palavra reservada, “return”, para emitir um “false” quando nós não tivermos saldo suficiente. O que isso vai fazer? Nosso método de saque vai ter um valor falso quando não for suficiente o dinheiro dentro da conta. Mas se for suficiente, eu vou retornar “true”. Por quê? Porque se eu tenho dinheiro suficiente lá, a operação deu certo.
+
+[05:08] Vamos pensar da mesma forma aqui no depósito, só que aqui no depósito eu vou mudar e vou utilizar “double”. E o que nós vamos retornar aqui do double? Vamos retornar o “this.saldo”, que é o valor do saldo dessa operação.
+
+[05:37] Se eu salvar o meu código e executá-lo de novo, nós temos aqui exatamente a mesma coisa, nada mudou. Por que isso é importante? Para que eu utilizo isso? Nós vamos utilizar isso porque aqui, com o retorno de nossas funções, agora nós podemos saber o que essas funções me retornam. Como assim?
+
+[06:06] Vamos tentar fazer um saque na conta da Amanda, “contaDaAmanda.saque” e um valor que ela tem, então “20” reais. Vamos também agora adicionar uma variável booleana, que vai receber isso aqui. Essa operação teve sucesso? Não sei, vamos verificar. Eu criei uma variável booleana chamada “sucesso” que vai receber essa operação aqui, e essa operação vai verificar se tem saldo. Se não tiver vai retornar um falso, se tiver, ele vai realizar a operação e retornar true.
+
+[06:55] Vamos imprimir a variável sucesso. Voltando no nosso terminal, eu vou executar novamente. Sacou 20 reais e tivemos sucesso na nossa transação. E se Amanda tentar sacar 150 reais, qual vai ser o retorno desse meu código? Sem saldo suficiente. E a minha funcionalidade, o meu método retornou “false”.
+
+[07:37] Agora que nós testamos com o saque, vamos tentar com o depósito. Qual vai ser o retorno de “sucesso” se eu mudar o tipo dele? E olha só, eu mudei para “double” e o Visual Studio Code já me mostrou aqui que um tipo bool não pode ser atribuído a uma variável do tipo double, ou seja, o nosso saque está retornando um valor booleano, enquanto nós estamos tentando recebê-lo no tipo double.
+
+[08:10] Para resolver isso eu vou utilizar “.deposito”, porque agora nós vamos verificar não no saque, mas sim no depósito. E a Amanda vai fazer um depósito de “20.0” reais. Qual vai ser o valor de sucesso depois que a Amanda realizar essa operação? 40 reais, que é o valor que ela já tinha na conta, mais os 20 reais. E se for 120? Volto no meu terminal, 140, que são os 20 reais que ela tinha mais o 120 que ela acabou de depositar.
+
+[08:54] Então nós aprendemos que nós podemos adicionar um valor de retorno para os nossos métodos. Os nossos métodos podem ter um tipo.
+
 ### Métodos com vários argumentos
+
+[00:00] Agora que nós já temos métodos que têm sua própria funcionalidade, por exemplo, nosso método de saque vai retirar dinheiro dessa conta. Nosso método de depósito deposita dinheiro nessa conta. E nós já descobrimos também que nossos métodos podem ter tipos e dentro dos meus métodos com tipos eu posso retornar um valor para seja lá onde eu chamei esse método.
+
+[00:31] Por exemplo, em nossa main, aqui eu estou chamando o método de depósito na conta da Amanda e eu estou armazenando o que esse método retorna dentro de uma variável, para que eu possa utilizar como eu quiser dentro da minha main.
+
+[00:50] Vamos dar continuidade com esse conhecimento descobrindo como nós fazemos métodos que têm mais de um argumento. Se vocês prestarem atenção, tanto o nosso método de saque quanto o nosso método de depósito têm apenas um argumento, que é o “valorDoSaque” ou o “valorDoDeposito”.
+
+[01:15] Esse argumento aqui está sendo utilizado apenas uma vez pelos dois métodos, então nós primeiro verificamos se ele tem o saldo suficiente e se ele tiver, nós vamos reduzir o valor do saldo dele desse valor de saque. E aqui no meu depósito eu vou adicionar ao valor do saldo dele.
+
+[01:43] E se eu precisar de mais um valor ou mais uma variável dentro do meu método, como eu faço? Para demonstrar como fazer isso eu vou fazer o método de transferência. Contas correntes podem transferir dinheiro entre elas mesmas. Se você tem uma conta corrente e você quer transferir dinheiro para o seu amigo, você precisa apenas dar o valor da sua transferência e para qual conta você quer transferir, e nós vamos fazer isso no nosso código.
+
+[02:17] Vamos começar dando o tipo do meu método, que vai ser booleano, e eu vou dar um nome para esse método que vai ser “transferencia” mesmo. No meu método de transferência eu vou abrir e fechar “()” e colocar os argumentos que eu preciso dentro dele.
+
+[02:40] Primeira coisa que eu preciso é um valor que será transferido. Então “double valorDeTransferencia”. Eu vou colocar uma “,” para indicar que eu quero colocar mais um argumento nesse método, posso dar um espaço, mas não preciso, “ContaCorrente contaDestino”. Como assim? Eu estou referenciando a minha ContaCorrente dentro da minha classe ContaCorrente e, sim, isso é completamente possível.
+
+[03:21] Por que isso é possível? A nossa classe armazena informações sobre um objeto que será instanciado durante a execução do meu programa e esse objeto não passa de uma variável, uma variável do tipo dessa classe. Como ele não passa de uma variável, eu posso utilizar o tipo dele dentro do próprio tipo dele, ou seja, dentro da classe eu ainda posso utilizar outra conta corrente. Isso é possível, sim.
+
+[03:55] Logo após ter declarado o nome do meu método e os argumentos do meu método, vou abrir e fechar “{}” e aqui dentro nós vamos colocar a lógica dessa função de transferência. A primeira coisa que nós vamos verificar é se o usuário tem saldo suficiente. Eu não posso fazer uma transferência sem limitar a quantidade de dinheiro que será transferido de fora dessa conta. Da mesma forma como nós fizemos isso no método de saque, nós vamos apenas copiar essa primeira linha do método de saque e colar aqui.
+
+[04:36] Notem que o valor de saque veio junto, mas dentro do meu método de transferência eu vou utilizar “valorDeTransferencia” e não “valorDoSaque”. Então vou colar o “valorDeTransferencia” no local de “valorDoSaque”. Vou fechar essa “}” e já vou escrever “else {}”, para escrever depois o que eu vou colocar aqui dentro.
+
+[05:04] Nesse primeiro caso nós não temos saldo suficiente, então eu vou apenas imprimir “(“Sem saldo suficiente.”);”. Como o meu método tem o tipo booleano, eu posso dar um retorno para esse método, e quando não dá certo, eu quero dizer para, seja lá onde eu chamei isso, que não deu certo essa transação, então vou retornar um “false”.
+
+[05:35] No caso que eu tenho saldo suficiente, o que eu preciso fazer? O primeiro passo é retirar dinheiro dessa conta que nós estamos. Para referenciar essa conta que nós estamos eu uso a palavra this, então “this.saldo -= valorDeTransferencia;”. Seguido do quê? Posso terminar aqui? Ainda não. Aqui eu só tirei dinheiro. Como isso é uma função de transferência, eu preciso que a minha conta de destino receba esse dinheiro, e como eu vou usar conta de destino dentro desse método?
+
+[06:17] Como eu dei o nome de conta de destino aqui, eu preciso apenas utilizar “contaDestino”. Quando eu coloco “.” eu tenho acesso a tudo que uma conta corrente tem, a agência, a conta, o depósito, o saldo, o saque, transferência.
+
+[06:39] Como nós vamos fazer isso aqui? Nós podemos utilizar o nosso método de depósito, que já está pronto. Nosso método de depósito adiciona dinheiro à conta que você tentar adicionar dinheiro. Na minha “contaDestino” eu vou fazer um depósito da quantidade “valorDeTransferencia”. Para terminar, eu vou retornar “true”, indicando que essa transação deu certo. E pronto, nós temos o nosso método de transferência funcional. Vamos testar?
+
+[07:19] Aqui em cima, na minha main, não vai ser mais um “double”, agora é um “bool”. E dentro desse booleano eu vou armazenar o valor de uma tentativa de transferência. Então “contaDaAmanda.transferencia” primeiro eu preciso do valor da transferência. Vamos começar enviando “20.0” reais. E a “contaDestino” vai ser a “contaDoTiago”.
+
+[07:50] Vou imprimir isso logo depois. Vamos verificar também o saldo dessas duas contas antes e depois dessa transação. Só vou copiar essa parte, o “print”, o saldo da conta da Amanda e na conta do Tiago, e colar depois da transação também. Vamos verificar os valores no meu terminal.
+
+[08:15] Aqui no meu terminal eu vou escrever “dart main.dart” e olha só, saldo da Amanda 20, saldo do Tiago 20, o valor retornado foi true, ou seja, a transferência deu certo, e o saldo da Amanda agora é 0 e o saldo do Tiago é 40, ou seja, essa transferência ocorreu, os 20 reais não estão mais na conta da Amanda, agora estão na conta do Tiago.
+
+[08:47] Vamos tentar transferir 120, será que vai dar certo? Voltei no meu terminal, vou limpar e executar novamente. Novamente o saldo da Amanda e do Tiago é 20, a transferência deu certo e o saldo da Amanda é -100 e o saldo do Tiago é 140, ou seja, todo o dinheiro que a Amanda tinha na conta foi para a conta do Tiago.
+
+[09:16] Para terminar, vamos testar 130, será que vai dar certo? Limpei, vamos executar novamente e dessa vez a Amanda não tinha saldo, então foi notificado que ela não tinha saldo suficiente, a transferência deu errado e nenhum dinheiro foi movimentado entre conta alguma.
+
+[09:40] Vamos voltar aqui só para verificar uma coisa, notem que tanto na minha função de transferência quanto na minha função de saque, eu retiro -100, e esses valores aqui estão escritos diretamente. E se a minha conta da Amanda tiver um cheque especial diferente da conta do Tiago? Nós temos que levar isso em consideração também.
+
+[10:08] Esse “-100”, o que chamamos de [HARD CODED], ou seja, que está escrito diretamente no código, pode ser melhorado. E como nós melhoramos esse caso? Nós podemos criar uma variável dentro da minha ContaCorrente que vai salvar a quantidade de dinheiro que o cheque especial dessa conta tem.
+
+[10:36] Meu “chequeEspecial”, vamos dizer que por padrão todas as contas têm um valor de “-100” de cheque especial, ou seja, todas podem ficar até um limite de -100 reais. Eu vou copiar o nome dessa variável e substituir onde está esse “-100”. Colei e agora nós temos acesso a mais um campo na minha ContaCorrente, é mais uma coisa que eu posso mudar em todas as minhas contas correntes.
+
+[11:10] Se a partir de agora o cheque especial de Amanda era 100 reais, eu posso mudar para “contaDaAmanda.chequeEspecial” agora vai ser “= -110.0;”. Com o seu novo cheque especial, a Amanda pode realizar essa transação, vamos testar? Aqui ela não tinha saldo suficiente. Se eu limpar e executar novamente, agora ela tinha. A transação deu certo, a Amanda tinha 20, Tiago tinha 20, agora a Amanda tem -110, que é o cheque especial dela, e Tiago tem 150.
+
+[12:05] Não só o nosso cheque especial, [NÓS] estamos fazendo algumas operações repetidas dentro dos meus métodos. Notem que tanto na função de transferência quanto na função de saldo nós fazemos essa verificação, se tem o saldo suficiente ou não, e nós imprimimos o que está acontecendo.
+
+[12:32] Por que nós não fazemos um método interno para usar só aqui dentro que vai fazer tudo isso? E se nos nossos métodos futuros que nós formos precisar, nós podemos reutilizar esse código e não vamos ter que escrever isso tudo novamente. Então vamos escrever esse método para verificar o saldo dessa conta.
+
+[12:56] Vamos começar dando um tipo. Como eu quero saber apenas se tem saldo ou não, eu vou usar um tipo booleano. O nome desse método eu vou colocar de “verificaSaldo” e o único argumento que eu preciso é o “(double valor)”. Vou deixar apenas valor, porque é mais genérico e esse valor é o que eu vou utilizar para verificar se tem saldo suficiente ou não.
+
+[13:27] A verificação que eu tenho que fazer é essa aqui mesmo, se não tem saldo eu vou fazer uma coisa, se tem saldo, eu vou fazer outra. Então eu só copiei e colei da minha função de transferência. Aqui eu vou fechar, já vou escrever o “else {}”. Aqui não vai ser “valorDeTransferencia”, vai ser apenas “valor”, porque é a variável que eu tenho dentro desse método.
+
+[14:00] Nesse primeiro caso, onde eu não tenho saldo suficiente, vamos copiar e colar isso aqui também. Eu vou imprimir que eu não tenho saldo suficiente e eu vou retornar “false”. No caso onde eu tenho saldo suficiente, eu posso copiar isso aqui. Vou copiar primeiro essa parte de impressão e depois eu posso copiar o meu “return”.
+
+[14:39] Aqui nem sempre eu estarei sacando, por exemplo, no meu método de transferência eu não estou sacando, eu estou transferindo, então eu vou trocar isso para movimentando uma quantidade de reais. Então “(“Movimentando $valor”, que é a variável que eu estou tentando movimentar, seguido da palavra “reais.”);”, para indicar que esse valor está sendo movimentado.
+
+[15:09] Como eu vou utilizar esse método dentro dos meus outros métodos? Eu posso remover tudo que está dentro desse if e eu vou chamar dentro do meu if esse método. Como esse método é um método booleano, ele vai me retornar um verdadeiro ou falso, e é justamente isso que eu preciso dentro do meu if.
+
+[15:37] Então “if(verificaSaldo(valorDeTransferencia))” eu não preciso mais imprimir isso aqui. “else” eu vou fazer toda essa movimentação, vou retornar falso caso o resultado desse verificaSaldo seja falso e vou continuar com o meu método.
+
+[16:04] Aqui no meu saque eu vou fazer a mesma coisa, eu posso tirar essa impressão, eu vou tirar essa impressão também e dentro do meu “if” eu vou apenas utilizar o “verificaSaldo” com o valor do saque como argumento. E eu vou retornar apenas se é falso ou fazer a movimentação.
+
+[16:30] Desse jeito nós minimizamos o código que nós precisamos escrever dentro dos nossos métodos e tornamos esse “verificaSaldo” completamente modular, nós podemos usar agora em qualquer lugar dentro da nossa classe.
+
+[16:50] Vou salvar e vou executar novamente, só para mostrar que nada mudou, nós apenas mudamos um pouquinho do nosso código, mas dessa vez eu estou realizando uma operação que pode ser repetida várias vezes pelo meu código. Aqui eu notei que estamos movimentando uma quantidade em reais, mas eu estou retornando false. Vamos verificar o que está errado?
+
+[17:22] Eu estou movimentando, aqui ele está retornando “true”, mas aqui ele retorna “false”. Então na verdade eu tenho que negar essa verificação, porque ele tem que retornar falso apenas quando for false aqui dentro do nosso “verificaSaldo”. Mesma coisa dentro do nosso saque. Então vamos dessa vez testar novamente. E agora sim, nós estamos movimentando 130 reais e realmente retirando o valor da conta corrente.
 
 ### Como chamar um método
 
+Qual a sintaxe e ordem corretas para chamar um método em Dart?
+
+- nomeDoMetodo.nomeDaReferencia();
+- nomeDaReferencia.nomeDoMetodo;
+- nomeDaReferencia$nomedoMetodo();
+- **nomeDaReferencia.NomeDoMetodo();**
+  - ***Correto! O nome da referência deve vir antes do nome do método, assim como devemos enviar os argumentos do método, mesmo que vazio, após isso tudo.***
+
 ### Sobre métodos
+
+O que aprendemos sobre métodos/funções nas últimas aulas?
+
+- **Um método pode não ter nenhum parâmetro.**
+  - ***Correto! Os parâmetros do método vêm dentro dos parênteses que seguem seu nome, mas não necessariamente precisamos enviar um argumento ao método.***
+- Funções e métodos são completamente diferentes.
+- **Um método define o comportamento ou a maneira de fazer algo.**
+  - ***Correto, esse é o objetivo de métodos, definir o que um objeto sabe fazer.***
+- **Um método não precisa definir o retorno. Se retornar nenhum valor, basta escrever o nome do método.**
+  - ***Correto! O dart consegue interpretar métodos sem tipo.***
 
 ### Métodos válidos
 
+Assumindo que cada método abaixo está dentro de uma classe, quais declarações estão válidas (executam)?
+
+- **depositar() {}**
+  - ***Correto! Métodos sem retorno, no Dart, podem omitir seu tipo.***
+- public void depositar() {}
+- **void depositar() {}**
+  - ***Correto! Podemos identificar o tipo do método antes de fazê-lo por nome.***
+- **depositar(double valor) {}**
+  - ***Correto! Mesmo com argumentos, um método pode ser declarado sem tipo.***
+
 ### O que aprendemos nessa aula?
+
+Nessa aula falamos sobre o comportamento de um classe, o que chamamos de métodos.
+
+Vimos:
+
+- Como definir métodos com parâmetros e retorno;
+- Como retornar algo usando a palavra reservada return antes do resultado do método;
+- O uso do return para tratar casos de falha dentro dos métodos;
+- Como usar a referência this para acessar os atributos da própria classe;
+- Que podemos passar argumentos para dentro de nossos métodos;
+- Que usamos o . após a referência de um objeto para acessar seus métodos.
+
+Vamos continuar nos aprofundado nas próximas aulas!
 
 ## Composição de classes
 
