@@ -574,17 +574,269 @@ Vamos continuar nos aprofundado nas próximas aulas!
 
 ### Composição de classes
 
+[00:00] Nós vamos conversar agora sobre composição de classes. Como assim composição de classes? Vamos pensar numa coisa aqui, nós temos essa nossa ContaCorrente, esse é o modelo que nós temos atualmente no nosso projeto, nós temos um titular, nós temos uma agência, nós temos uma conta, um saldo e um cheque especial. Todos eles com os seus tipos.
+
+[00:26] Mas o nosso titular – vamos começar por ele – é uma string. Atualmente nós salvamos apenas o nome dessa pessoa. Isso não é tão errado de fazer, mas uma pessoa pode ter o mesmo nome que a outra, podem existir dois Luiz Fernandos de Oliveira no Brasil ou em qualquer lugar onde o Alura Bank vai funcionar.
+
+[00:56] Como nós vamos distinguir de uma conta corrente para outra, sendo que as duas têm o mesmo nome? Vamos destrinchar então esse titular e pensar uma pessoa, o que uma pessoa é formada? Quais são os dados de uma pessoa que a tornam única? E uma delas pode ser o CPF da pessoa.
+
+[01:20] O CPF é um número de identificação de uma pessoa. Duas pessoas no Brasil não têm o mesmo CPF. Vamos criar então uma classe que nós vamos chamar de cliente, e o nosso cliente vai ter alguns métodos diferentes e vai ter alguns campos diferentes da nossa ContaCorrente.
+
+[01:46] Aqui do lado eu vou criar mais um quadradinho e esse quadradinho eu vou chamar de “Cliente”. Vou pintá-lo de azul e quais serão campos desse cliente? Nós temos o “nome”, que vai ter o tipo “String”. O nome do nosso cliente será armazenado como uma string no nosso programa.
+
+[02:19] Nós temos outro campo também, o “CPF”. O CPF eu vou tratar como uma string também, porque ele tem ponto, tem traço, não são apenas números. E para terminar, vamos armazenar também a “profissão” dessa pessoa, vamos deixar no tipo “String”. Todos os campos são do tipo “String”.
+
+[02:44] E o nosso Cliente é diferente da minha ContaCorrente, nosso Cliente também é diferente do meu titular. O que isso nos ajuda? Observem que ao criar uma classe do tipo Cliente nós podemos substituir o meu titular, meu titular agora não será uma “String”, ele será um “Cliente” e o meu cliente agora é único, eu tenho um cliente e o cliente tem um nome, tem um CPF e tem uma profissão.
+
+[03:18] A partir de agora eu posso ter clientes com mais de um nome que serão diferenciados pelo CPF deles. E de deixa nós também teremos a profissão dessa pessoa em nosso programa.
+
+[03:36] Como escrever isso no nosso código? Voltando ao nosso código, no VS Code eu vou dar um espacinho entre a main e a nossa conta corrente e eu vou criar uma nova classe. Essa nova classe vai se chamar “Cliente”, assim como nós definimos no desenho. Então “Cliente” vai ter três campos, tem uma string chamada “nome”, tem outra string chamada “CPF” e tem outra string chamada “profissão”.
+
+[04:09] Voltando aqui, vamos transferir isso para o nosso código. Nós temos uma “String” chamada “nome”, o nome do cliente. Nós temos uma “String” chamada “cpf”, eu vou deixar aqui minúsculo, porque no Dart, quando nós escrevemos com letras maiúsculas, geralmente nós falamos de alguma função ou método, começamos com letra maiúscula, então geralmente nós utilizamos letras minúsculas para as propriedades da nossa classe, o nome das nossas variáveis.
+
+[04:48] E “String” também será a “profissao” dessa pessoa. Preciso de mais alguma coisa? Não, nossa classe aqui está completamente utilizável. E no meu “titular” da minha “ContaCorrente” não será mais uma “String”, agora vai ser um “Cliente”. O que isso significa para o nosso código?
+
+[05:13] Vocês vão notar que quando eu mudei para Cliente apareceram alguns erros aqui em cima do meu código. Primeira coisa, eu vou apagar isso tudo, para ter mais espaço para demonstrar o que está errado.
+
+[05:31] Quando eu mudei para Cliente dentro da minha ContaCorrente eu gerei dois erros no nosso código, onde nós declaramos o titular da contaDaAmanda e o titular da contaDoTiago. Se eu deixar o mouse em cima o erro é esse aqui, um valor do tipo string não pode ser armazenado numa variável do tipo cliente.
+
+[05:52] O que tem de errado aqui? Nós estamos tentando armazenar uma string dentro de cliente, sendo que cliente na verdade tem três strings diferentes, cada uma com um nome diferente. A primeira é “nome”, a segunda é “cpf” e a terceira é “profissao”. Como nós corrigimos isso? Vou apagar aqui.
+
+[06:16] Eu vou primeiro mostrar para vocês que agora nós temos acesso ao tipo Cliente, nós criamos uma classe Cliente e nós vamos poder instanciar objetos do tipo Cliente. Eu posso usar “Cliente” aqui na minha main, seguindo de, por exemplo, “amanda”, que é o nome da Amanda, vai ser “= Cliente();”. Notem que é o mesmo padrão da minha ContaCorrente, eu tenho primeiro o tipo, o nome da variável, vai ser igual ao mesmo tipo aqui da frente, abre e fecha “();”.
+
+[06:58] E agora eu tenho acesso a todos esses campos, eu tenho acesso ao campo “nome”, ao campo “cpf” e ao campo “profissao”. Então “amanda.nome = “Amanda”;”. “amanda.cpf = “123.456.789-00”;”. E “amanda.profissao = “Programadora Dart”;”. Eu criei um cliente, o nome desse cliente é Amanda, eu populei os três campos de Amanda com as informações de Amanda e agora como eu coloco essa Amanda dentro da minha ContaCorrente?
+
+[07:55] Nós podemos simplesmente dizer que a “contaDaAmanda.titular = amanda;” que é o nome da minha variável do tipo Cliente que está armazenando todas essas informações. “Mas como assim? Ainda está complicado”.
+
+[08:18] Nós criamos o tipo Cliente, que vai nos gerar um objeto Cliente e esse Cliente tem todos esses campos. Depois de criar tudo isso, aí sim eu posso armazenar dentro do meu titular da minha ContaCorrente que tem o tipo Cliente. Como nós imprimimos então essas informações?
+
+[08:43] Eu posso fazer simplesmente um “print(“Titular: ${contaDaAmanda.titular}”);”. O que será que nosso terminal vai dizer quando eu tento imprimir isso? Vou limpar, executar meu programa e olha só, titular é uma instância de cliente, não deu certo. Eu já sei que eu tenho um objeto do tipo Cliente que está armazenando esses valores, como eu tenho acesso a isso então?
+
+[09:22] Eu posso, depois de “titular”, colocar mais um “.” e agora no meu titular da minha ContaCorrente eu tenho acesso a todos os campos do meu cliente. Por quê? Porque meu titular da minha ContaCorrente tem o tipo Cliente. Então depois do meu “titular” aqui no meu print eu coloco “.” e eu tenho acesso ao nome, ao CPF e a profissão.
+
+[09:52] Se eu clico em nome, por exemplo, eu vou copiar, colar isso três vezes, vou mudar aqui para “CPF”, vou mudar aqui para “Profissao” e aqui também, “.cpf”, e aqui não vai ser “nome”, vai ser “profissao”. Salvei, volta no terminal e executa novamente. Será que vai sair instância de Cliente? Não, saiu todos os dados de Amanda.
+
+[10:27] Agora com esse conhecimento nós podemos criar clientes únicos, que têm não só o nome, mas têm o CPF, têm uma profissão, dentro da nossa ContaCorrente, sem alterar muita coisa na nossa ContaCorrente. Eu criei uma classe diferente para armazenar mais dados sobre o nosso titular e com uma leve modificação eu consigo adicionar agora mais informações sobre os clientes desse banco dentro de suas contas correntes.
+
 ### Importando classes
+
+[00:00] Atualmente esta é a disposição que nós temos no nosso projeto. Nós temos a classe “ContaCorrente”, que dispõe de cinco atributos.
+
+[00:14] Uma delas é o nosso “titular”, que recentemente nós criamos uma classe para segurar os dados desse titular, nós temos “nome”, “CPF”, “profissão”, tudo num pacotinho que nós chamamos de “Cliente”. E esse “Cliente” é uma classe separada da ContaCorrente, ela não é a mesma coisa, não faz parte do mesmo corpo, mas está atuando ali como um ajudante da ContaCorrente.
+
+[00:42] Toda vez que nós instanciamos uma nova classe, ou seja, eu crio uma nova conta corrente, vou deixar aqui do lado, vou pintar de vermelho e eu dou um nome para isso aqui, como nós estávamos usando, por exemplo, “contaDaAmanda”.
+
+[00:59] Então nós instanciamos contaDaAmanda e nós começamos a popular esse objeto com algumas coisas, como, por exemplo, a agência aqui, a padrão é 145. Na verdade, não é aqui, é desse lado que eu escrevo. “145”. O saldo por padrão é “20.0”. O cheque especial por padrão é “-100” e assim por diante.
+
+[01:30] Mas nós não temos nem uma conta nem um titular padrão e sempre que nós quisermos colocar um titular dentro da conta, nós precisamos instanciar um objeto do tipo cliente, vou colocá-lo aqui do lado, pintá-lo de vermelho. No exemplo que nós demos eu chamei esse cliente de “amanda” e Amanda nós apontamos o titular dentro de contaDaAmanda para essa variável chamada “amanda”.
+
+[02:07] Então nós passamos a ter essa disposição, onde o nosso titular da minha conta corrente aponta para outro objeto do tipo cliente, que vai ter um nome e no campo “nome” vamos colocar o nome da Amanda, no campo “CPF” vamos colocar o CPF de Amanda e no campo “profissão” a profissão de Amanda, nesse caso, “Programadora”.
+
+[02:39] Isso vai facilitar um pouco nós crescermos o nosso código, aumentarmos a complexidade das nossas classes sem precisar mexer diretamente nas nossas classes. Nós criamos um titular com mais dados para colocar aqui dentro apenas criando essa classe e modificando o tipo dentro da nossa conta.
+
+[03:03] Um dos problemas disso é que quanto mais nós fizermos isso, maior vai ficar o nosso código. E de fato, se nós voltarmos para o código que nós temos escrito, olha o tamanho que ficou isso. Nós temos “ContaCorrente”, que tem todos os seus métodos e nós temos “Cliente”, que ocupa pouco espaço, mas tem potencial de crescer.
+
+[03:27] Como organizar o nosso código para que fique sempre mais fácil o possível encontrar e modificar as coisas sem que quebremos tudo ou deixemos muito bagunçado nosso arquivo? É exatamente por isso que existe essa pasta “lib”.
+
+[03:43] Essa pasta “lib” é para nós organizarmos o nosso código de uma forma coesa e fácil de se entender. Na nossa pasta lib nós podemos ter outros arquivos que vão guardar as nossas classes. Por exemplo, se eu quiser um arquivo que contém apenas coisas da nossa ContaCorrente, eu posso ter. E se eu quiser outro arquivo que lide apenas com a nossa classe Cliente, eu também posso ter. E como eu vou fazer isso?
+
+[04:18] Vamos clicar com o botão direito bem em cima da pasta “lib” e vai aparecer essa janelinha. Nós vamos criar um novo arquivo, é só clicar em “New File”.
+
+[04:30] Nesse novo arquivo eu vou dar um nome, pode ser o nome que você quiser, mas para ficar mais fácil de encontrar e se identificar dentro do seu projeto, geralmente nós colocamos diretamente o nome da classe como o nome do arquivo, por exemplo, vou criar o arquivo da minha classe cliente, então eu crio “cliente.dart”. Precisa da extensão “.dart”? Sim, porque é um arquivo que vai rodar no meu programa, [EM] Dart.
+
+[05:02] Notem que ficou vazio. Meu arquivo está vazio, é um novo arquivo e eu posso pegar esse meu “Cliente”, “Ctrl + X”, que eu vou tirá-lo daqui, venho no meu “cliente.dart” e colei. Salvei o meu programa, vou voltar para cá e nós temos um erro aqui, mas nós não vamos lidar com ele agora, vamos criar um arquivo também para ContaCorrente. Eu volto na minha pasta “lib”, clico com o botão direito, “New File” e aqui eu vou colocar “contacorrente.dart”.
+
+[05:46] Nesse conta corrente aqui eu vou fazer a mesma coisa, vou selecionar tudo que é da minha classe ContaCorrente, “Ctrl + X” para tirar da minha main, voltei para minha conta corrente e colei. “Ctrl + S” para salvar e está pronto.
+
+[06:06] Agora como eu resolvo esse problema aqui? Deu um erro no meu tipo Cliente. Quando eu deixo o mouse em cima, classe cliente não definida. O que isso significa? Significa que a minha classe cliente não está sendo encontrada nesse arquivo.
+
+[06:27] De fato, se nós copiarmos e colarmos essa parte Cliente aqui bem no final ou pode ser cima, o erro some, porque agora Cliente existe nesse arquivo. Como eu faço então para deixar Cliente no arquivo dele, mas utilizar dentro da minha conta corrente? É para isso que serve o import.
+
+[06:55] Import é a palavra importar. Nós vamos importar uma coisa de outro lugar no nosso projeto. Como eu utilizo o importar? Eu escrevo “import”. O Visual Studio Code já se encarrega de colocar aqui “import”, aspas e ponto e vírgula para nós, completando o formato de escrever o import. Cliquei aqui e ele vai me dar opções do que importar.
+
+[07:28] Se você colocou cliente e conta corrente na mesma pasta, ele já até mostra aqui, cliente pode ser importado diretamente para esse arquivo. Então eu clico em cliente e aqui está utilizando o import do arquivo cliente. Salvei.
+
+[07:47] Vocês vão notar que não existe mais erro aqui dentro de cliente, cliente agora está sendo importado de outro arquivo. Se nós segurarmos “Ctrl” e clicarmos em “’cliente.dart’”, nós vamos ser levados para o arquivo “cliente.dart”.
+
+[08:07] Resolvemos o problema dentro de conta corrente, mas aqui na nossa main temos todos esses erros, tanto de ContaCorrente quanto de Cliente. E nós vamos usar o import aqui também. Antes de main nós vamos escrever “import ‘ ’” e dessa vez não apareceu conta corrente aqui, por que não apareceu? Porque a conta corrente está em outro arquivo. Para acessar esse conta corrente aqui nós temos algumas opções.
+
+[08:41] A mais fácil delas é o quê? Escreve “..” para ir para a pasta anterior, uma “/” e olha só, a pasta lib vai aparecer. Selecionando a pasta lib nós podemos selecionar qualquer arquivo que esteja dentro de .lib. Então “contacorrente” primeiro.
+
+[09:04] Agora que eu tenho importado “contacorrente”, eu vou importar também o cliente, pois eu o estou utilizando bem aqui. Então na próxima linha “import ‘../lib/’” e falta o cliente, então “cliente.dart”. Salvei, vou observar que não existem mais erros do meu código, não tem mais nenhuma linhazinha vermelha embaixo, nem de conta corrente nem de cliente.
+
+[09:42] Se eu voltar aqui, limpar meu terminal, e vou “dart main.dart”. Eu não estou na pasta certa, então “cd bin/”, “ dart main.dart” e funciona da mesma forma, por quê? Nós estamos importando esses arquivos de outro lugar do nosso projeto e agora, nesse arquivo “main.dart” eu vou escrever apenas coisas pertinentes à minha main. No meu arquivo “contacorrente.dart” eu vou escrever coisas apenas pertinentes à minha conta corrente. E no meu arquivo “cliente.dart” eu vou escrever coisas apenas do meu cliente.
 
 ### Nulll
 
+[00:00] Agora que nós já deixamos o nosso código um pouquinho mais conciso, separando cada classe que pertence a certo [DE DADO] diferente em cada um dos seus arquivos. E nós conseguimos importar também esses outros arquivos dentro dos arquivos que nós queremos para utilizar essas classes.
+
+[00:20] E vocês vão notar que agora nós temos um arquivo de cliente onde nós vamos tratar de coisas só relacionadas ao objeto cliente, assim como na conta corrente nós temos um arquivo que só vai ter coisas relacionadas a nossa conta corrente. E a nossa main só vai ter código que manipula essas classes a fim de fazer o nosso programa funcionar.
+
+[00:49] Vamos falar agora de objetos ou tipos ou variáveis nulas. O que isso significa? Vamos ver esse código que nós já temos. A contaDaAmanda possui um cliente, possui uma agência, uma conta, um saldo e um cheque especial.
+
+[01:10] Aqui nós inicializamos um novo objeto “Cliente” e nós o populamos com o nome da Amanda, com o CPF da Amanda, com a profissão da Amanda e lá no nosso “titular”, que é um campo da nossa conta corrente, nós jogamos esse objeto “amanda” lá para dentro. Então nós temos acesso agora a ele a partir da nossa conta corrente também.
+
+[01:38] Vou salvar esse código, vamos no nosso terminal e se eu executar esse código, sai aqui, titular Amanda, o CPF da Amanda, a profissão da Amanda e assim por diante. Mas e essa conta do Tiago? Nós nem chegamos a mexer nela. Vamos ver o que acontece com a conta do Tiago se eu tentar acessá-lo diretamente.
+
+[02:10] Vou comentar todos esses prints relacionados à conta da Amanda e dessa vez eu vou tentar imprimir a conta do Tiago. O que será que vai sair do meu programa se eu tentar imprimir diretamente a conta do Tiago? Salvei, vou executar no meu terminal, uma instância de ContaCorrente.
+
+[02:35] Isso nós já sabíamos, já aconteceu conosco antes, mas e se dessa vez eu tentar imprimir o titular lá dentro? Vejam que dessa vez eu não quero tentar imprimir o objeto ContaCorrente, eu estou tentando imprimir o objeto Cliente, porque eu estou tentando acessá-lo aqui, “contaDoTiago.titular”.
+
+[02:59] Voltando ao nosso terminal, executando o nosso programa e “null”. O que essa palavra significa? Essa palavra significa a falta de alguma coisa. Não é zero, é simplesmente não existe. E por que ainda não existe? Porque esse objeto nunca foi inicializado. Lembre-se que Cliente agora é uma classe e a nossa ContaCorrente possui um objeto chamado titular, que é do tipo Cliente. E por ser uma classe, precisa necessariamente ser inicializado.
+
+[03:48] Como nós fazemos isso? Da mesma forma que nós fizemos com a Amanda, para evitar que apareça nulo no nosso programa, que o nosso programa nos retorne algo que não existe, nós vamos inicializar um cliente. Vou tirar isso, que está incorreto, [VOCÊ] também. E esse cliente eu vou chamar de “Tiago”, vai ser “= Cliente();”, da mesma forma que nós fazemos com a Amanda.
+
+[04:24] Inicializei esse Tiago, o que eu faço agora? Vou salvar e vou tentar executar isso novamente. Null de novo, por quê? Nós inicializamos o Tiago, mas nós nunca colocamos esse “tiago” aqui como titular da contaDoTiago, então é exatamente isso que eu vou fazer agora. “contaDoTiago.titular = tiago;”, salvei. Volta para o meu terminal e executa novamente.
+
+[05:03] Vejam que dessa vez saiu instância de cliente, do mesmo jeito que saiu aqui instância de conta corrente. Dessa vez o objeto existe, talvez ele ainda não tenha colocado os campos, como, por exemplo, aqui no “amanda.nome” nós definimos o nome da Amanda dentro do objeto Cliente. Aqui ainda não fizemos isso, tanto que se eu tentar acessar “titular.nome” e pedir para o meu programa imprimir isso, observem que, nulo momento.
+
+[05:41] Nós inicializamos o objeto, mas os campos dele também precisam ser inicializados se nós pretendemos utilizá-lo. Então vamos começar a popular isso aqui. E para popular isso eu vou explicar uma nova forma de acessar esses dados.
+
+[06:03] Quando nós estamos criando o nosso objeto Tiago nós podemos acessar os campos do elemento Cliente de uma forma diferente da Amanda. Vejam que aqui nós criamos o objeto, depois nós acessamos o “amanda.nome = “Amanda”;”, “amanda.cpf” e o CPF, “amanda.profissao” e a profissão.
+
+[06:26] Aqui eu vou tirar “;” do cliente Tiago. Na próxima linha, ou pode ser até na mesma linha, eu vou colocar “..”, depois desse “..” eu posso colocar “nome” e o nome vai ser o quê? “Tiago”. Na outra linha, “..cpf”, CPF de Tiago é qual? “132.456.789-00”. E esse é o CPF do Tiago. “..profissao = ‘Programador Dart’” também, e aí sim eu coloco “;”.
+
+[07:15] Notem que nós não precisamos ficar escrevendo esse “tiago”, o nome dessa variável, nós podemos acessar esses campos simplesmente colocando “..” seguido do nome da propriedade dessa classe. Isso aqui nós chamamos de cascata, nós estamos fazendo uma cascata com todas as propriedades dessa classe e já colocando valores dentro dessas propriedades.
+
+[07:48] E agora coloquei o nome, coloquei o CPF e coloquei a profissão. Vamos fazer a mesma coisa que eu tinha feito com a Amanda, só que dessa vez para o Tiago. Vou tirar os comentários disso aqui e aqui eu vou fazer “contaDoTiago”. Copiei, colei, colei de novo. Vamos imprimir todos os campos do cliente Tiago para ver se isso deu certo. Salvei meu código, vou voltar no meu terminal e executar.
+
+[08:31] Dessa vez nós imprimimos todos os campos do Tiago e não da Amanda. Eu vou tirar os comentários para vocês verem que é exatamente a mesma coisa, só que nesses dois pontos nós fizemos de formas diferentes, vai de gosto. Se você se familiarizar melhor com isso aqui, você usa isso aqui. Se você não gostar muito, pode usar isso aqui também.
+
+[08:59] Esse aqui eu acredito que tem já tem algum conhecimento de Javascript, por exemplo, vai gostar mais, porque essa funcionalidade veio do Javascript. Executei a minha main novamente e dessa vez saiu Amanda e saiu Tiago, exatamente no mesmo formato.
+
 ### Problema não esperado
+
+Fernando decidiu aplicar seu conhecimento sobre composição utilizando as classes Pessoa e Empresa, criadas por Jaqueline. Porém, seu código não está funcionando:
+
+```Dart
+class Endereco {
+  String rua;
+}
+class Pessoa {
+  String nome;
+  String cpf;
+  Endereco endereco;
+}
+
+class Empresa {
+  String razaoSocial;
+  String cnpj;
+  Endereco endereco;
+}
+
+void main() {
+  Pessoa fernando = Pessoa();
+  fernando.nome = "Fernando";
+  fernando.endereco = "Alameda 15"
+}
+```
+
+Marque a opção que explica os erros de Fernando:
+
+- **Ele deveria ter feito ```fernando.endereco.rua = “Alameda 15”```.**
+  - ***Correto! Fernando tenta atribuir uma String a uma variável do tipo Endereco, e as duas são diferentes.***
+- Ele não atribui valores em todas as propriedades da classe Pessoa antes de acessar os atributos da classe endereco.
+- Ele está acessando uma propriedade que não foi inicializada.
 
 ### Removendo redundâncias
 
+Jaqueline criou as seguintes classes:
+
+```Dart
+class Pessoa {
+  String nome;
+  String cpf;
+  String rua;
+  String cidade;
+  String cep;
+}
+
+class Empresa {
+  String razaoSocial;
+  String cnpj;
+  String rua;
+  String cidade;
+  String cep;
+}
+```
+
+Fernando, percebendo que o código que Jaqueline escreveu se repete com os atributos rua, cidade e cep, escreve a seguinte classe para abstrair esses três atributos:
+
+```Dart
+class Endereco {
+  String rua;
+  String cidade;
+  String cep;
+}
+```
+
+Qual alternativa modifica corretamente as classes Pessoa e Empresa para utilizar a classe Endereco?
+
+- ***Alternativa A***
+
+```Dart
+class Pessoa { String nome; String cpf; Endereco endereco; }
+class Empresa { String razaoSocial; String cnpj; Endereco endereco; }
+```
+  - ***Correto***
+
+- Alternativa B
+
+```Dart
+class Pessoa { String nome; String cpf; String endereco; }
+class Empresa { String razaoSocial; String cnpj; Endereco endereco; }
+```
+
+- Alternativa C
+
+```Dart
+class Pessoa { String nome; String cpf; endereco endereco; }
+class Empresa { String razaoSocial; String cnpj; endereco endereco; }
+```
+
 ### Organizando código
 
+Jaqueline tinha as classes Endereco, Pessoa, Empresa no mesmo arquivo, mas achou melhor organizar cada classe em um arquivo próprio, então cria os arquivos dentro da pasta lib de seu projeto.
+
+O nome dos arquivos que ela criou são:
+
+```Dart
+endereco.dart
+pessoa.dart
+empresa.dart
+```
+
+Como Jaqueline poderá reutilizar estes arquivos no mesmo projeto, caso queira utilizar essas classes?
+
+- Alternativa A
+
+```Dart
+import ‘../lib/endereco’
+import ‘../lib/pessoa’
+import ‘../lib/empresa’
+```
+
+- **Alternativa B**
+
+```Dart
+import ‘../lib/endereco.dart’
+import ‘../lib/pessoa.dart’
+import ‘../lib/empresa.dart’
+```
+
+  - ***Correto! Devemos sempre referenciar o nome completo do arquivo.***
+
+```Dart
+Alternativa correta
+import ‘../lib/endereco,pessoa.dart.dart,empresa.dart’
+```
+
 ### O que aprendemos?
+
+- Realizar o relacionamento entre classes através de composição;
+- Isolar trechos de código em outros arquivos;
+- Importar arquivos externos em outros arquivos;
+- O valor do null.
 
 ## Get e Set
 
