@@ -842,34 +842,369 @@ import ‘../lib/endereco,pessoa.dart.dart,empresa.dart’
 
 ### obterSaldo e definirSaldo
 
+[00:00] Vamos passar para uma nova parte da programação no Dart agora. Nós vamos ver algumas propriedades únicas, não só da linguagem de programação Dart, mas como linguagem em programação e orientação a objetos no geral, que são propriedades de classes.
+
+[00:19] Eu vou apagar esses clientes, o cliente Amanda, cliente Tiago, vou deixar só a conta corrente deles. Observem só que tendo apenas a nossa ContaCorrente, nós não inicializamos absolutamente nada dentro do objeto em si, só os inicializamos mesmo.
+
+[00:39] Vamos utilizar a conta corrente da Amanda para demonstrar as propriedades de uma classe. “contaDaAmanda.saldo”, por exemplo, e se eu definir esse saldo da Amanda como “-101”? Logo depois eu vou vir aqui, eu vou imprimir o “(contaDaAmanda.saldo );”. Escrevi, vamos ao meu terminal, eu vou executar esse código e “-101.0”. Ok, e daí?
+
+[01:20] E daí que nós acabamos de fazer uma coisa que não deveria acontecer. O saldo da conta da Amanda agora é -101, mas o cheque especial da Amanda é só -100, ela não pode ficar com o valor de -101 na conta dela. Como isso aconteceu? Como aqui no meu terminal saiu -101 se nós já fazemos algumas verificações aqui para ver se o saldo dela é menor ou não que o cheque especial dela?
+
+[01:58] Isso está acontecendo porque da nossa main nós temos completa liberdade de movimentar ou alterar o valor do saldo da conta da Amanda e de todas as contas correntes livremente. Mas qual é o problema disso? Sou eu que estou fazendo esse programa, eu sei quando deixar o valor ali ou não, quando mudar o valor do saldo de uma conta corrente.
+
+[02:27] Mas pense dessa forma, nós estamos fazendo um programa para um banco onde o saldo da pessoa está dependente de nunca ser alterado erroneamente, e você é um ser humano, você pode errar eventualmente.
+
+[02:46] Assim como outros programadores que vão mexer no seu código, porque você não está fazendo isso sozinho, vão errar também ao escrever código utilizando os seus métodos que você definiu. E se no seu método você é capaz de alterar o saldo de uma pessoa de fora da conta corrente dela, isso pode ser preocupante.
+
+[03:12] Como nós fazemos para parar com que isso aconteça? Aí que nós vamos entrar em propriedades. As propriedades de uma classe, as propriedades de um tipo de variável vão nos ajudar. Mas como assim? Como propriedades?
+
+[03:31] Para quem já ouviu falar de public e privado, protected e essas palavras reservadas também de outras linguagens de programação, já entendeu o que eu quero falar aqui. Agora, se você nunca ouviu falar, observe uma propriedade única do Dart. Se eu colocar um “_” antes de “saldo” eu estou definindo a propriedade dessa variável saldo como privada.
+
+[04:10] O que significa privado? Privado significa que apenas dentro da ContaCorrente, ou seja, abriu “{“ aqui, fechou “}” aqui, apenas dentro da ContaCorrente esse saldo pode ser acessado e, de fato, vocês vão notar que saldo até dentro da própria ContaCorrente mudou, agora todos os lugares que eu escrevi saldo está avisando que está errado. Mas o que aconteceu? Já vamos chegar lá. Por enquanto eu vou apenas salvar, deixa isso errado por enquanto.
+
+[04:53] Notem que eu deixei o “” antes do “saldo” e eu vou voltar na minha main e o saldo aqui também está aparecendo errado. Se eu colocar um “” aqui vocês vão notar que ainda está errado, mas por que isso está errado?
+
+[05:13] “saldo”, por ser uma propriedade, uma variável privada do objeto ContaCorrente, não vai ser acessível de qualquer lugar de fora da ContaCorrente. Se eu quiser acessar, inclusive, saldo de dentro da ContaCorrente, eu vou ter que utilizar o “” também.
+
+[05:39] Mas vocês vão notar que dentro de ContaCorrente, todos os campos que eram “saldo” eu estou colocando “_saldo”. E vocês vão notar que agora está tudo certo, não tem mais erros no meu código. Mas se eu tento voltar na minha main e eu tento acessar saldo, vocês vão notar que até quando eu escrevo “contaDaAmanda.” e eu tento procurar por saldo aqui, saldo não aparece.
+
+[06:12] Agora que saldo é privado e esse tipo de erro é impossível de acontecer dentro da ContaCorrente, podemos até mudar o valor de saldo, mas de fora da ContaCorrente não adianta. Olha só, mesmo código, vou colocar o “_” aqui também, mas contém erros. Então quando eu tento executar o meu código, erros dizendo que saldo não foi definido.
+
+[06:41] Como nós vamos então alterar o valor de saldo de fora da main? Apesar de não ser uma prática que a orientação a objetos recomenda, inclusive a orientação a objetos tem propriedades desse tipo, justamente para prevenir que erros, como movimentação de dinheiro errada fora da classe ocorram.
+
+[07:08] Mas nós podemos criar métodos que vão resolver esse problema para nós, como, por exemplo, nós podemos escrever aqui “void”, vamos criar um método para “DefinirSaldo”. Esse nosso método vai ter que receber um “(double” que eu vou chamar de “novoSaldo)”. Abre e fecha “{}” e aqui dentro eu posso definir “this._saldo = novoSaldo;”.
+
+[07:48] Pronto, agora nós criamos um método que vai receber um novo saldo e vai adicionar esse novo saldo dentro do meu campo saldo privado. E eu vou acessá-lo na main da forma normal, “DefinirSaldo” e o novo saldo vai ser -101.
+
+[08:15] Mas como eu acesso? Eu estou tentando imprimir esse saldo, mas eu não tenho acesso a ele, porque saldo ainda é privado. Nós podemos resolver isso, eu vou mudar aqui “definirSaldo” para começar com letra minúscula, errei nisso. E eu vou corrigir o acesso ao meu saldo da seguinte maneira, em vez de tentar imprimir o saldo diretamente, eu vou criar outro método.
+
+[08:44] Esse método vai ter o tipo “double” e eu vou dar o nome desse método de “obterSaldo()”, não vou passar nenhuma variável lá para dentro, ele não tem parâmetro nenhum, porque eu não preciso alterar nada, não preciso receber nada, eu vou apenas retornar o valor de “saldo”.
+
+[09:08] Salvei aqui, “Ctrl + S” para salvar, vou na minha main e em vez de tentar acessar “_saldo” diretamente, “.obterSaldo()”. E notem que dessa vez não gerou erro algum no meu código. Salvei, vou abrir o meu terminal e executar o meu código. Mais uma vez eu estou definindo o valor de -101 para o meu saldo.
+
+[09:42] Nós corrigimos uma coisa, nós já não temos mais acesso direto a essa variável saldo. Nós temos que usar esses dois métodos, “definirSaldo” e “obterSaldo”, para ter acesso a esse saldo que é privado.
+
+[10:02] E como eu agora conserto isso? Eu não posso deixar que o valor de saldo seja menor do que o valor do cheque especial. E agora que nós estamos utilizando métodos para acessar esse campo saldo, nós podemos fazer o seguinte, “if(novoSaldo < chequeEspecial)”. “this._saldo = novoSaldo;”. Se não eu vou imprimir uma mensagem de “(“Erro! Tentei mudar o saldo para algo menor que o cheque especial.”)”. Coloquei uma mensagem bem grande, só para reconhecermos quando isso acontece.
+
+[11:14] E deixando da mesma forma que está aqui, dentro do “definirSaldo” novamente, nós verificamos se o valor do novo saldo é menor do que o cheque especial. E se sim, nós vamos dar essa mensagem. Aqui eu realmente errei o símbolo, “>”.
+
+[11:36] Agora que nós temos esse “definirSaldo” corretamente, eu vou executar o meu código e vocês vão notar, quando eu tentei adicionar -101 o meu código vai dizer: “Tentei mudar o saldo para algo menor que o cheque especial.”, e logo depois nós estamos imprimindo o valor do saldo. Olhem só, o valor do saldo não mudou, é 20 conforme nós inicializamos a nossa conta corrente.
+
+[12:09] E se eu tentar “-100”? -100 é exatamente o cheque especial. Voltando ao meu terminal eu vou executar novamente o nosso código e caiu no erro novamente. Vamos colocar aqui “>=”, agora deve ir. Agora sim, o saldo de Amanda que nós definimos como -100 está exatamente no limite do cheque especial. Mas ao tentar colocar qualquer valor que seja menor do que o cheque especial dela, nós caímos no erro.
+
+[12:56] Como tratamos desse erro será coisas futuras do nosso curso, mas por enquanto nós aprendemos a utilizar métodos tanto para definir quanto para obter valores privados de dentro das nossas classes.
+
 ### get e set
+
+[00:00] Na aula anterior nós definimos e nós obtemos o saldo a partir de métodos, nós criamos métodos para verificar se nós podemos mudar o valor do saldo ou se nós temos um erro ao tentar fazer isso, e nós também criamos um método para obter o saldo.
+
+[00:23] O que nós fizemos não é errado e é condizente com o paradigma da orientação a objetos, onde nós temos campos privados que não podem ser acessados de fora da classe. Mas apesar de utilizarmos da forma correta, criando métodos para isso, o Dart nos oferece ferramentas que são um pouquinho mais rápidas e mais bem definidas para acessar esse tipo de campo, campos privados.
+
+[00:54] Como e quais são eles? Nós conhecemos esses dois métodos como get e set. Get do inglês significa obter e set do inglês significa definir. E são exatamente essas duas palavras que nós vamos utilizar nessa aula. Ao invés de utilizar “definirSaldo” e “obterSaldo” nós vamos utilizar get e set.
+
+[01:22] Para isso eu já vou imediatamente excluir tudo o que nós fizemos. Eu vou deixar saldo privado mesmo, “_” antes do nome da variável significa que essa variável é privada. Na nossa main nós temos dois erros, nós estamos utilizando métodos que não existem. Mas isso não é um problema, vamos na nossa ContaCorrente e dessa vez utilizar as ferramentas que o Dart nos provê para realmente utilizar da forma correta o get e o set.
+
+[02:02] Vamos começar pelo get. O get é obter o valor de uma variável, e para eu obter o valor de uma variável eu vou escrever “get”, vocês vão notar que a palavra “get” fica em azul escuro, assim como a palavra “class”, a palavra “import”, a palavra “this”. Isso é uma palavra reservada do Dart. Essa palavra significa obter, então nós vamos obter o quê? Eu vou dizer que nós vamos obter o “saldo”.
+
+[02:37] Preciso de mais alguma coisa? Preciso. Logo depois de get eu vou abrir e fechar “{}” e dentro delas eu vou simplesmente retornar “saldo;”. Eu não preciso fazer mais nada, isso aqui é um get mais simples possível no Dart, onde nós só vamos retornar o valor de uma variável. E olha só, “get saldo” e eu vou retornar o “saldo;”. Será que isso funciona? Vamos ver na nossa main.
+
+[03:16] Aqui eu vou apagar essa linha onde nós tentamos definir o saldo e como nós estamos tentando primeiro obter o valor de saldo, eu não vou mais utilizar esse método, agora nós utilizamos o get. Eu preciso escrever aqui “getSaldo”? Não preciso. Como eu tinha falado, o get e o set do Dart têm algumas propriedades que nos permitem burlar algumas coisas que nós temos que escrever a mais.
+
+[03:47] E como eu faço para obter o saldo? “.saldo”. Voltamos à estaca zero. Ou será que não? Antes de começarmos a falar de propriedades, quando o saldo era público, ou seja, quando ele não tinha “” na frente, nós podíamos sempre escrever “.saldo” para acessar diretamente o saldo. Mas dessa vez o nosso saldo é privado, ou seja, ele tem o “” na frente, e nós estamos utilizando novamente “saldo” para acessá-lo.
+
+[04:24] Por que essa complicação toda? Isso é porque dessa vez nós estamos acessando o saldo que é público e nós estamos retornando o saldo que é privado. Da mesma forma como nós estávamos utilizando o método obterSaldo, só que dessa vez nós não precisamos de um tipo de classe nem utilizar um método para acessar, nós estamos acessando a propriedade “saldo” que nos retorna o “_saldo” privado.
+
+[04:59] E o set? Qual é a diferença entre o get e o set? O set vai, na verdade, definir o valor de uma variável. E nós temos primeiro que definir o que nós vamos enviar lá para dentro. Como é um saldo e o tipo do saldo é um double, eu vou escrever aqui “set saldo” e eu vou receber um “(double”, porque o tipo do saldo é double. E o “novoSaldo)”.
+
+[05:40] Notem que ele tem a mesma estrutura do get e ele se parece muito com o método, ele abre e fecha “()” e lá dentro eu envio um valor. Eu vou abrir e fechar “{}” também e dessa vez eu vou definir “this.saldo” e aqui dentro não preciso nem colocar o this, como o saldo existe no contexto de ContaCorrente, não preciso do this aqui. Então “saldo = novoSaldo;”, assim como eu usaria no método normal.
+
+[06:23] Vamos tentar acessar agora o saldo de fora da ContaCorrente. Agora na minha main eu vou tentar “contaDaAmanda.saldo”, olha o saldo ali de novo, “= -101;”. E agora sim, definitivamente nós voltamos à estaca zero. Nós estamos da mesma forma que nós estávamos antes de falar de propriedades. Por que essa complicação toda, Timóteo?
+
+[06:56] Agora, da mesma forma como nós utilizamos o definirSaldo e o obterSaldo, nós temos acesso na nossa propriedade privada, o “saldo”, que agora é privado, por meio de um método público, que é o “saldo”, sem o “” na frente. E vocês vão notar que eu tinha alterado, dentro da minha ContaCorrente eu tinha colocado “_” antes de todos os saldos.
+
+[07:27] Eu posso agora tirá-los, por quê? Porque como eu fiz um set e um get também e ambos têm o nome saldo, eu não preciso mais utilizar o “_” quando eu for utilizar o saldo dentro da minha ContaCorrente, eu posso simplesmente utilizar o get e o set.
+
+[07:57] Da mesma forma como nós utilizamos lá no definirSaldo, da aula anterior, eu posso colocar aqui “if(novoSaldo >= chequeEspecial)” eu vou definir o saldo como sendo esse novoSaldo. E se ele não for maior, eu vou imprimir aquele erro, “print(“Erro! Tentei modificar o valor de saldo para um valor menor que o cheque especial.”);”. Essa é uma mensagem maior ainda do que da última vez.
+
+[08:50] E olha só, nós temos uma estrutura muito parecida de quando nós utilizamos o obterSaldo e o definirSaldo, mas dessa vez nós estamos utilizando diretamente a palavra saldo, não precisa mais ser o nome de um método.
+
+[09:08] Voltando para minha main, notem que eu ainda tenho acesso a esse saldo, eu ainda posso enviar 101, mas o que acontece se eu executar o meu código agora? Que eu faço essas verificações para ver se esse novoSaldo pode ser adicionado ou não?
+
+[09:28] No nosso terminal eu vou executar e eu tentei adicionar 101 e ganhei uma mensagem de erro. O nosso saldo logo depois continua sendo 20. Se eu tentar mudar para -100 será que vai dar certo? No nosso terminal, executo novamente e olha só, -100. Dessa vez deu certo, por quê? Porque o saldo pode ser sim definido como -100, é exatamente o valor do cheque especial.
+
+[10:01] E para qualquer valor maior que esse -100 vai dar certo, só que dessa vez, diferente de quando nós estávamos mexendo antes de falar de propriedades, qualquer valor que eu tente inserir no meu saldo que seja incorreto, ou seja, que não passe por essa verificação, eu vou cair nesse erro. Tentei enviar -110 e aqui está o meu erro.
 
 ### produtividade com get e set
 
+[00:00] Agora que nós já vimos como fazer gets e sets para propriedades das nossas classes, nós vamos falar sobre como nós adiantamos um pouquinho o nosso trabalho de escrever esses gets e esses sets.
+
+[00:16] Vamos utilizar de exemplo a nossa agência. Quando nós queremos definir um get e um set de forma rápida, vocês podem notar que o nosso saldo nós utilizamos várias linhas, tanto para o get quanto para o set, e pode ser um pouco demorado. Se você tiver várias propriedades, várias variáveis que você quer definir como privada e não necessariamente você precisa utilizá-las e você precisa fazer alguma verificação, como, por exemplo, aqui no saldo, que nós verificamos se ele é maior ou menor que alguma coisa.
+
+[00:57] Nós podemos fazer os gets e os sets de forma bem rápida, mas como nós fazemos isso? Vamos tomar de exemplo esse get do nosso saldo, onde nós definimos o nosso “saldo”, abre “{“, “return _saldo;”, “}”. Como nós fazemos isso um pouquinho mais rápido?
+
+[01:21] O Dart nos oferece uma ferramenta bem interessante. Na nossa nova linha aqui, vou colocar uma nova linha embaixo da nossa “agencia”, da nossa classe “ContaCorrente”, e eu vou definir a minha agência como sendo privada, ou seja, eu só vou colocar “_” na frente.
+
+[01:41] Coloquei o “_” na frente, eu vou tentar voltar para esse código na nossa main e eu vou tentar acessá-lo, então “agencia” vocês vão notar que não existe, mas eu vou deixar esse código aqui só esperando uma nova agência. Assim como aqui eu não preciso desse saldo, eu vou utilizar dessa vez a “agencia”.
+
+[02:04] Vocês vão notar que quando eu tento acessar a agência para definir um valor lá para dentro dá errado. A nossa agência é privada e não vai rolar. Quando eu tento imprimir a agência eu também tenho um problema, porque novamente, a minha agência é privada, ela só é acessível de dentro da minha conta corrente.
+
+[02:28] Vamos escrever o get e o set da agência para aceitar modificações do lado de fora da minha classe. Vamos começar pelo get. Primeira coisa, escreva a palavra “get”, depois “agencia”, que é o nome da variável que eu quero acessar, e é aqui que está uma funcionalidade bem legal do Dart.
+
+[02:55] Se vocês escreverem “=>”, formando essa setinha apontando para o lado direito, vocês vão notar que apenas esses dois caracteres vão substituir tanto a chave quanto o return. Essa setinha vai retornar tudo que está à direita dela. E no caso, à direita dela eu vou colocar a minha “agencia;” com o “” antes, ou seja, o privado da minha agência.
+
+[03:29] Se eu salvar isso aqui, vou voltar na minha main, vocês vão notar que aqui não tem mais erro. Quando eu tento imprimir o valor da minha agência eu já não tenho mais nenhum erro. Mas eu tenho erro quando eu tento alterar o valor da agência de fora da minha classe.
+
+[03:49] Voltando à minha ContaCorrente, dessa vez nós vamos escrever o set da agência. Então “set agencia”, e eu tenho que abrir e fechar “()”. Dentro eu vou colocar “int novaAgencia”. Posso utilizar a setinha aqui? Posso, sim. “=> {}” e dessa vez eu preciso colocar “{}”, “_agencia = novaAgencia”. “;” dessa vez eu coloco do lado de fora, mas eu coloco do lado de fora porque eu estou utilizando a minha setinha.
+
+[04:37] Se eu tirar a minha setinha, por exemplo, eu vou ter que colocar o meu “;” do lado de dentro, porque dessa vez isso aqui está se comportando como uma função, um método. Então em uma linha só também eu posso fazer o set da minha agência.
+
+[04:57] Uma coisa interessante a se notar é que o Dart não requer o tipo que você envia para dentro desse set. Vocês veem que eu tiro o “int” ali, não tem erro nenhum no meu programa, tanto que se eu volto na minha main, o erro sumiu, não tem mais erro aqui, eu posso colocar um valor dentro de agência. O problema aqui é um só, como você não está definindo o tipo da novaAgencia, o tipo dela vai ser dinâmico, ou seja, dinâmico pode ser qualquer coisa.
+
+[05:31] Portanto, se eu tentar enviar uma string aqui para dentro, eu estou tentando enviar a string “12345” para dentro de “agencia”. Se eu executar meu código, olha só o que vai acontecer, string não é um subtipo de int. Se você não definir um tipo para essa novaAgencia, pode ser que o seu programa vai dar errado.
+
+[06:00] Então definir o tipo desse parâmetro que você está enviando para agência é uma boa coisa a se fazer, porque a sua própria IDE, ou seja, o Visual Studio, pode te mostrar isso aqui, que uma string não pode ser atribuída a um tipo int. E nós podemos corrigir isso antes de executar o nosso programa.
+
+[06:26] Voltando ao meu terminal, eu vou executar esse programa com o get e o set da agência que nós já fizemos e dessa vez deu certo. Eu envio o valor de uma agência e depois imprimo o valor dessa agência, e deu tudo certo, com o get e o set bem resumidos aqui.
+
 ### Getters e Setters
+
+A criação de getters e setters é uma tarefa rotineira quando criamos propriedades de classes em uma linguagem orientada a objetos. A sintaxe do Dart nos oferece uma maneira muito mais ágil de criar estas propriedades. Sobre a sintaxe de getters e setters no Dart, selecione as alternativas corretas:
+
+- **A palavra reservada get pode ser utilizada para obter o valor de um atributo privado da classe.**
+  - *Correto! A palavra get em nosso código irá retornar seja lá o que atribuirmos a certo atributo.*
+- **Podemos utilizar set nome(novoNome) => _nome = novoNome; ao invés de `set nome(novoNome) { _nome = novoNome; }.**
+  - *Correto! A “setinha” pode atribuir valores a qualquer campo privado da classe.*
+- **Podemos utilizar get valor => _valor ao invés de get valor { return valor; }.**
+  - *Correto! A “setinha” => têm o mesmo efeito do return.*
+- get e set podem ser usados apenas com atributos privados.
 
 ### Público vs privado
 
+Luíza resolveu criar um modelo para treinar orientação a objeto e encapsulamento:
+
+```Dart
+class Pessoa {
+  String nome;  
+  String _cpf;
+  Endereco endereco;
+}
+```
+
+Ela tenta utilizar um objeto do tipo Pessoa da seguinte maneira:
+
+```Dart
+void main() {
+    Pessoa cliente = Pessoa();
+    cliente.nome = "João";
+    cliente.cpf = "123456789-0";
+    cliente.endereco = Endereco();
+}
+```
+
+O que podemos afirmar sobre o código?
+
+- As atribuições estão sendo feitas do jeito correto. O código compila e executa.
+- O código não vai executar pois a classe Pessoa não foi criada da maneira correta.
+- **O código não vai executar, pois cpf é um campo privado.**
+  - *Correto! Não podemos acessar o atributo cpf pois ele só é visível dentro da classe Pessoa.*
+
 ### Por quê privado?
 
+Daniel criou uma classe com diversos campos privados, porém não sabe exatamente qual é a vantagem de utilizar esta abordagem.
+
+Qual das opções melhor define a vantagem do uso de campos privados?
+
+- Os campos privados podem ser acessados em qualquer lugar, o que facilita a implementação da lógica do programa.
+- **A implementação de campos privados permitem que os mesmos possam ser modificada sem afetar nenhum código fora da própria classe.**
+  - *Correto. O uso de campos privados evita que alguma implementação de um objeto da classe em outro lugar de nosso código não seja afetado por mudanças privadas de dentro da classe.*
+- Usando campos privados somos obrigados a escrever getters e setters, que são uma boa prática.
+
 ### O que aprendemos?
+
+- Atributos privados, restringindo o acesso aos atributos;
+- Encapsulamento de código;
+- Métodos de leitura dos atributos, os getters;
+- Métodos de modificação dos atributos, os setters;
+- A sintaxe de propriedades no Dart para facilitar a criação de getters e setters.
 
 ## Construtores
 
 ### Construtores
 
+[00:00] Nós agora que já sabemos algumas propriedades das nossas variáveis dentro das nossas classes, como, por exemplo, isso aqui é uma variável pública, porque ela não tem “_” antes do nome da variável.
+
+[00:15] Enquanto essa, o saldo, é uma variável com propriedade privada. Ela tem o “” antes do nome e nós não temos acesso à ela, “contaDaAmanda.”, não vai aparecer nada. Todas as variáveis que têm o “_” antes do nome são privadas. E como nós podemos acessá-las? Nós podemos acessá-las fazendo um get e um set, tanto para obter o valor dentro dessa variável quanto para definir um valor para essa variável.
+
+[00:54] Vamos agora voltar nossas atenções para a agência e a conta dessa conta corrente. Toda conta precisa tanto de um número de agência quanto do número de uma conta. E nós podemos acessar o número da agência e definir lá dentro o valor “123”. Assim como eu quero acessar o valor da conta e eu posso definir para o valor da conta “12345678”.
+
+[01:27] Defini o valor de agência e de conta. Se eu tentar imprimir “agencia” e se eu tentar imprimir “conta” nós vamos imprimir esses dois valores. Vamos testar no nosso terminal, eu vou escrever “dart bin\main.dart”, vamos executar nosso programinha aqui. 123 e 12345678. Esse é o valor da agência e da conta que nós acabamos de definir.
+
+[02:02] Eu não sei quanto a vocês, mas eu nunca vi uma agência de uma conta corrente que tenha um valor negativo. Isso é possível? Nós podemos adicionar um valor negativo na nossa agência? Se eu executar o nosso programa vocês vão ver que é possível, sim. A nova saída aqui possui um valor negativo.
+
+[02:27] E se isso for um erro meu, se isso for um erro do sistema eu não sei, mas que isso pode gerar problemas para o nosso banco futuramente, isso provavelmente pode. Então nós temos que definir que nenhuma agência nossa pode ser negativa. Podemos resolver isso utilizando o get e o set? Podemos.
+
+[02:53] Eu vou primeiro tornar a agência um campo privado, então “get agencia”, eu vou retornar apenas valor da agência, e como é um retorno de apenas um valor, eu posso colocar apenas a setinha ali, eu não tenho que tratar esse valor, eu apenas o retorno.
+
+[03:13] E o meu “set agencia” vai ter um valor inteiro, que vai ser uma “novaAgencia”, eu vou abrir e fechar “{ }” e eu só vou colocar lá dentro o valor dessa nova agência se essa nova agência for um valor “> 0”. Então eu posso definir que “_agencia = novaAgencia”, “;” para terminar e salvei o meu código.
+
+[03:46] Agora que nós temos esse controle pelo set, se eu tentar adicionar esse 123, o que vocês acham que vai acontecer? Executando o código vocês vão ver que saiu 145, e esse 145 vem desse valor padrão que nós já atribuímos à nossa agência na criação da nossa conta corrente.
+
+[04:11] Mas aí vocês vão prestar atenção que na criação dessa conta corrente nós já definimos um valor, que é o 145. E se nós pudéssemos atribuir um valor na criação dessa conta corrente, tanto da agência quanto da conta? Mas valores que eu defino lá na minha main, ou seja, de fora da nossa classe e não de dentro dela. Isso se chama construtor e o construtor tem várias utilidades, uma delas, inclusive, é obrigar que toda conta corrente tenha o valor de uma agência e o valor de uma conta.
+
+[04:52] Digamos que eu esqueci de adicionar a minha conta para uma conta em específico, então um dos nossos clientes não tem mais o número de uma conta, ele tem a agência, mas ele não tem o número da conta.
+
+[05:07] Executando o nosso programa vocês vão notar que saiu null, essa variável conta nunca foi inicializada. Imagina se ele tenta fazer uma transferência ou quer receber dinheiro e ele não tem número de conta, como aconteceria? Isso é um problema para o nosso programa. Nós temos que forçar que toda conta corrente tenha um número de agência e tenha um número de uma conta.
+
+[05:36] Para que isso aconteça nós vamos novamente utilizar o construtor. O que é o construtor? O construtor faz exatamente o que o nome dele diz, ele vai construir o nosso objeto, dependendo dos parâmetros que nós vamos passar para ele. Ele pode ter ou não parâmetros, mas é sempre bom utilizar parâmetros. Então vamos lá.
+
+[06:03] Aqui numa primeira linha da minha ContaCorrente, mas você pode fazer em qualquer uma, eu vou escrever “ContaCorrente”, abrir e fechar “()” e nós já estamos escrevendo o nosso construtor aqui dentro.
+
+[06:20] A primeira coisa que eu tenho que definir no meu construtor são os parâmetros que eu tenho que enviar para lá. E como nós estamos falando de agência e de conta, eu vou enviar “this”, porque eu estou falando dessa ContaCorrente, “.” e como eu estou dentro da minha classe, eu estou escrevendo isso dentro da minha ContaCorrente, eu tenho acesso aos meus campos privados aqui.
+
+[06:47] A primeira coisa que eu quero enviar é a “_agencia” e eu vou escrever uma “,” porque eu quero enviar mais coisas, a segunda coisa que eu quero enviar é “this.” a conta corrente dele. Temos dois argumentos dentro desse construtor, eu vou colocar um “;” aqui para terminar, essa linha está pronta, e esses dois argumentos agora são obrigatórios na hora da construção desse meu objeto.
+
+[07:20] Vocês vão notar que nós temos dois erros agora nossa main. Por agora eu vou comentar essa contaDoTiago, vamos mexer apenas com a contaDaAmanda. E se eu deixo o meu mouse em cima do erro ele vai dizer que nós precisamos de dois argumentos aqui dentro. E, novamente, dentro dos “()” nós vamos enviar os argumentos para construir a contaDaAmanda.
+
+[07:45] Antes de fazer isso eu vou salvar o meu código e tentar executar. Eu quero mostrar para vocês que quando nós não enviamos os argumentos para o construtor da nossa classe, nosso código nem executa.
+
+[07:59] E quando o nosso código não executa, nós estamos forçando que o nosso código seja necessário esses dois argumentos para a nossa conta corrente. Tanto outros programadores no seu time de desenvolvimento, ou você mesmo, serão obrigados a enviar esses valores para a contaDaAmanda, ou para qualquer conta corrente. Então vamos enviar “123,12345678”, são esses os valores que eu já estava utilizando.
+
+[08:37] Como está agora no nosso construtor da classe, é esperado que esses valores estejam já inclusos na minha ContaCorrente quando eu crio a contaDaAmanda. E vamos tentar executar esse código do jeito que está. Eu estou enviando “123” e de 1 a 8 como conta.
+
+[09:02] Voltando ao meu terminal, eu vou executar o código novamente e os valores saíram certinhos. Essa é a agência e essa é a conta corrente. Nós estamos construindo nossa conta corrente já com esses valores.
+
+[09:18] Mas espera aí, se eu colocar o “-123” aqui isso já vai ser tratado? E vocês vão observar que infelizmente não são. O -123 ainda é aceito dentro do construtor. Por quê? Porque lá na minha ContaCorrente eu estou incluindo esse valor direto no meu campo privado, eu não preciso nem utilizar o meu set. Como corrigir isso?
+
+[09:48] O nosso consultor também pode aceitar valores que não sejam diretamente os nossos campos. Em vez de enviar esse “this._agencia”, nós podemos receber um “int agencia” e nós vamos tratar isso dentro do corpo do meu construtor. Eu posso colocar abre e fecha “{ }” logo depois do meu construtor, e se “(agencia > 0)” eu vou aceitar isso dentro da minha agência, no campo privado.
+
+[10:29] Eu vou trocar esse valor aqui por “novaAgencia”, só para não confundir, então “novaAgencia”. Agora eu estou recebendo um valor “novaAgencia” e se esse valor for maior do que zero eu vou dizer que “_agencia” vai ser igual a ele, se não, continuo o programa. Se ele continuar, ele vai atribuir o valor de 145.
+
+[11:00] Então vamos enviar aqui. Vamos salvar nosso programa, estou enviando -123 e com -123 a minha agência padrão 145 é utilizada na contaDaAmanda. Agora, se eu tiro esse “-“, e eu estou enviando o valor 123, eu devo esperar que eu receba a minha agência de valor 123. E aqui está ela.
+
+[11:30] Este é o construtor da nossa ContaCorrente, ele é responsável não só por obrigar que certos valores sejam enviados para a construção desse objeto, mas também tratar esses dados se forem necessários.
+
 ### Membros estáticos
+
+[00:00] Agora que nós já sabemos utilizar construtor para construir objetos a partir de alguns parâmetros que nós enviamos, e nós vamos obter objetos que já possuem certas variáveis lá dentro, inicializadas a partir desses valores que nós passamos como parâmetros.
+
+[00:24] Nós também obrigamos as pessoas a enviarem esses valores lá para dentro, então é imprescindível que toda conta corrente tenha uma agência e tenha uma conta. E se eu quiser saber quantas contas correntes nós temos na nossa agência, na nossa conta ou no nosso banco em geral?
+
+[00:51] Eu preciso criar um campo, pensem comigo, se eu criar um campo “int totalDeContasCorrentes”. Esse valor total de contas correntes será inicializado, então eu vou começar já contando como “0”. Por que 0? Porque toda conta corrente vai inicializar com 0. Quando nós criarmos a nossa primeira conta corrente, mudamos esse valor para 1.
+
+[01:23] Na contaDaAmanda eu já estou inicializando com o valor da agência, com o valor da conta e eu vou lá e “contaDaAmanda.totalDeContasCorrentes = 1”. E vamos voltar na nossa contaDoTiago, vamos tirar esse “//”, vamos enviar para ele uma conta também, “12345679”. E a contaDoTiago vai precisar ser o de valor número 2, então “totalDeContasCorrentes = 2”.
+
+[02:03] Espera aí, tem alguma coisa estranha. Como eu vou saber se essa realmente é a 2? Mas e se eu perder a contagem no meio do caminho, se eu errar alguma coisa, como eu vou saber quem essa é realmente a 2? Eu vou precisar fazer isso para todas as contas correntes? Não.
+
+[02:26] Aqui no nosso construtor nós não podemos fazer o seguinte, “totalDeContasCorrentes++;”? Sempre do nosso construtor nós vamos dizer para adicionar um valor lá dentro de totalDeContasCorrentes. Vamos salvar esse código e eu vou imprimir primeiro o valor lá dentro da contaDaAmanda e eu vou imprimir também lá na contaDoTiago. Então “contaDoTiago.totalDeContasCorrentes”. Vamos imprimir esses dois valores.
+
+[03:14] Saiu 1 e 2. Mas espera aí, na contaDaAmanda está contando 1 ainda, mas eu tenho duas contas correntes, deveria sair 2 aqui também, não? Isso aqui é uma propriedade específica, é uma variável que tem que ser estática, da nossa classe. Como assim da nossa classe?
+
+[03:37] Se vocês pensarem bem, a conta corrente em si não precisa saber quantas outras contas correntes existem. O nosso banco vai ter vários clientes, esses clientes não precisam de uma referência para a quantidade de contas que existem nesse banco.
+
+[03:58] Se vocês observarem, essa variável totalDeContasCorrentes não pertence ao nosso objeto, porque, novamente, nenhuma conta corrente precisa saber quantas contas correntes existem, isso é desnecessário. Mas a nossa classe tem esse poder de saber quantas contas correntes devem existir dentro dela mesmo.
+
+[04:30] Se isso é pertinente à nossa classe e não ao objeto gerado pela classe – eu vou tirar isso daqui, vou colocar mais em cima – nós podemos utilizar essa nova palavrinha, o “static”. O static vai definir que essa variável é estática dessa classe que ela está dentro. E o que significa? O que eu quero dizer por estático?
+
+[05:02] O que eu quero dizer é que estático é algo que pertence à classe ContaCorrente e não ao objeto ContaCorrente. A conta corrente em si não faz ideia de quantas contas correntes existem, mas a minha classe ContaCorrente sabe.
+
+[05:20] E já que nós estamos contando, aqui nós estamos fazendo da forma certa. Dentro do nosso construtor, ou seja, toda vez que uma nova conta corrente for inicializada, eu vou adicionar mais um ao valor dessa variável.
+
+[05:39] Aqui eu não preciso mais acessar com “contaDaAmanda.totalDeContasCorrentes” e tento definir um valor lá dentro, nem a do Tiago, os dois estão [ERRADOS]. E vocês vão notar que existe um erro de compilação aqui, um campo estático não pode ser acessado por uma instância desse objeto. Como eu acesso essa quantidade? Eu preciso utilizar um objeto para acessar essa quantidade? Eu não preciso.
+
+[06:11] Em vez de utilizar a contaDaAmanda ou a contaDoTiago, eu vou usar a ContaCorrente. Isso aqui eu posso tirar, Visual Studio Code aqui está se enganando, salvei e, olha só, “ContaCorrente.totalDeContasCorrentes”. Dessa vez eu estou utilizando a classe em si, ContaCorrente, para salvar a quantidade de contas correntes que foram criadas a partir dessa classe.
+
+[06:45] Salvei o meu código e eu vou comentar esse aqui do Tiago, vou deixar só da Amanda por enquanto. Então da Amanda, eu venho no meu terminal, executei e existe uma conta, uma conta que é apenas a da Amanda. E se eu criar a do Tiago agora? Tirei o comentário, vamos voltar ao nosso terminal, executar novamente. Agora nós temos duas contas correntes.
+
+[07:14] Vamos criar uma terceira, só para definir que isso realmente está funcionando. “ContaCorrente contaDoAlexandre = ContaCorrente(123,123456780)”, isso eu posso tirar, “;” para finalizar, tirar essa linha também, que o Visual Studio Code está se enganando, e dessa vez nós temos três contas correntes. Será que vai aparecer 3 ali? Executei o meu código e aqui, três contas correntes foram criadas.
+
+[08:02] Dessa vez essa conta corrente não é do objeto gerado pela classe ContaCorrente, mas sim essa variável é da classe ContaCorrente em si, então você não vai ter acesso a, por exemplo, “contaDoTiago.totalDeContas...”, vocês veem que nem completa, por quê? Porque não faz parte dessa instância, faz parte da classe em si.
 
 ### Conclusão
 
+[00:00] Parabéns, você chegou no final de mais um curso de Dart. Dessa vez nós falamos de orientação a objetos.
+
+[00:08] Ao invés de trabalharmos com código da seguinte maneira, por exemplo, nós temos um “String” que vai ser o titular de uma conta, vamos chamá-lo de “titular1” que vai ter o nome de “’Jeferson’” e ele vai ter uma “contaCorrente1” que vai ter um valor de 1 a 5 e assim por diante.
+
+[00:38] Nós não vamos mais pensar dessa forma, tendo vários campos com titulares já direto lá na nossa main. Dessa vez nós vamos pensar em classes, nós vamos criar as nossas classes, por exemplo, a nossa “ContaCorrente”, que nós aprendemos que uma classe vai gerar um objeto, esses objetos vão ter campos, como “titular”, como a “agencia”, como a “conta”, como o “saldo”. Cada um desses campos pode ser tanto privado quanto público.
+
+[01:15] E o que isso significa? Significa que privado vai ser acessado apenas de dentro da própria classe e público pode ser acessado de fora, tornando um pouco mais segura a nossa implementação da nossa classe.
+
+[01:32] Nós aprendemos também que nós podemos fazer métodos como esse que nós verificamos o saldo e se esse saldo for maior do que o disponível no nosso cheque especial, nós podemos movimentar dinheiro lá dentro, se não, nós vamos dar uma mensagem de erro e retornar um valor pelo nosso método, seja lá para onde nós o estivermos utilizando.
+
+[02:04] Nós podemos fazer transferências utilizando métodos também, utilizando argumentos, enviando argumentos para dentro desses métodos que vão ser verificados, tratados, modificados, a fim de que tenhamos objetos que possam ser gerados e manipulados de forma diferente. E com alguns toques específicos de nossas classes, como, por exemplo, a palavra reservada “this”, que referencia o objeto que você está atualmente.
+
+[02:39] Nós também vimos get e set, que são duas propriedades que vão tanto colocar um valor dentro dos nossos campos privados quanto tirar esse valor de lá, obter esse valor para nós. O get vai fazer a parte de obter esse valor para fora da classe e o set vai colocar um valor dentro desses campos privados de nossas classes.
+
+[03:09] Nós podemos ter lógica dentro desse set, por exemplo, para que nós não consigamos aqui colocar uma nova agência que seja menor do que 0, que ela precisa necessariamente ter um valor maior do que 0.
+
+[03:24] O nosso construtor vai construir essa classe baseado nos valores que nós enviamos como argumentos, ou seja, nós podemos inicializar esse objeto de qualquer maneira que nós quisermos. E nós também sabemos que podemos ter classes dentro de classes, obviamente, criando uma classe e referenciando-a dentro de outra classe. É uma forma de ter um objeto cliente, por exemplo, dentro do meu objeto ContaCorrente.
+
+[04:01] E lá na minha main nós não vamos mais fazer aquilo de inicializar campo por campo, colocando o nome de cada cliente, colocando a conta de cada cliente manualmente dentro de cada objeto, no caso seriam várias strings, vários inteiros, vários doubles para os saldos dessas contas. E dessa vez nós temos tudo organizado dentro dos nossos objetos ContaCorrente.
+
+[04:32] E nós também temos métodos lá dentro, que vão facilitar a movimentação de dinheiro entre uma conta e outra ou de uma conta específica. Nós podemos usar os métodos, nós podemos acessar os campos, como, por exemplo, a conta corrente dessas contas e assim por diante.
+
+[04:54] Espero muito que esse curso tenha ajudado você a ser um melhor desenvolvedor Dart e eu espero muito também que tenha sido muito útil para o seu crescimento pessoal.
+
 ### Sobre construtores
+
+Abaixo, temos algumas afirmações a respeito da utilização de construtores.
+
+Qual delas é verdadeira?
+
+- Construtores não podem receber parâmetros.
+- Construtores não têm utilidade real, podemos deixar os atributos públicos e defini-los manualmente.
+- **Construtores são utilizados para inicializar os atributos.**  
+  - *Correto! A inicialização de atributos é a principal responsabilidade do construtor.*
 
 ### Onde está o erro?
 
+Luana está construindo um jogo e temos o trecho de código abaixo:
+
+```Dart
+class Jogo {
+  Componente _comp;
+
+  Jogo(Usuario usuario) {
+    this._comp = usuario;
+  }
+}
+```
+
+Porém o código acima não é executado.
+
+Qual dos motivos abaixo explica a razão disso?
+
+- O uso da palavra reservada this está errado.
+- **Está sendo feita uma atribuição de objetos de tipos diferentes.**
+  - *Correto! O tipo Usuario não é igual ao tipo Componente.*
+- Não podemos atribuir _comp, pois é um campo privado.
+
 ### Por que não soma?
+
+Em seu jogo, Luana quer manter o número total de jogadores atualizado. Para isso, ela escreve o código abaixo:
+
+```Dart
+class Jogador {
+  int _totalJogadores;
+
+  Jogador() {
+    _totalJogadores++;
+  }
+}
+```
+
+Porém, o contador sempre apresenta 1 após inserir um novo jogador. Qual dos motivos abaixo explica a razão desse acontecimento?
+
+- Luana deveria deixar o _totalJogadores como propriedade, usando o recurso de get e set do Dart.
+- Luana deveria deixar o _totalJogadores como público, para que ele possa ser somado sem problemas.
+- **O _totalJogadores deveria estar como estático, assim, sempre que fosse criado um novo objeto do tipo Jogador, não seria criado um novo total, mantendo-se o valor correto.**
+  - *Correto! A declaração correta desse campo é static int _totalJogadores;.*
 
 ### O que aprendemos?
 
+- Construtor da classe, possibilitando receber argumentos e inicializar atributos a partir da criação de um objeto;
+- Com isso, a inicialização dos atributos recebidos no construtor torna-se obrigatória.
+- Atributos da classe, os atributos estáticos.
 
 ## Congratulations!
 
