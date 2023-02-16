@@ -34,13 +34,28 @@
 
 ### Funções iniciais
 
-### Função main(){}
+No VSCode pressionar `ctrl` + `shift` + `p` e criar projeto Dart para console.
 
-### Para saber mais: DartPad
+Linha de comando: `dart create -t console {{PATH}}/projeto-inicial`
 
-### Faça como eu fiz
+### O que aprendemos na aula 01?
 
-### O que aprendemos?
+Nesta aula, aprendemos sobre:
+
+- Por que usar Dart:
+
+Conversamos sobre por que escolher o Dart para produção do seu código, assim como quais as vantagens e desvantagens dessa linguagem orientada a objetos. Também entendemos qual sua origem e como ela está sendo utilizado no momento.
+
+- Ferramentas para usar o Dart:
+
+Descobrimos duas ferramentas para poder programar em Dart no nosso computador, o IntelliJ (IDE) e o SDK do Dart. Vimos como instalá-las e usá-las em conjunto para criar nosso primeiro projeto em Dart.
+
+- Funções Iniciais:
+
+Em nosso primeiro projeto, nos deparamos com algumas funções já prontas: a função main(){} e a função print(). Discutimos como elas funcionam e qual a importância delas no nosso código.
+Concluímos a Aula 1! Se tiver dúvidas, não deixe de aparecer lá no fórum.
+
+Por que não ajudar a responder a uma dúvida? Explicar um assunto para alguém é uma ótima forma de aprender e consolidar o conhecimento!
 
 ## Variáveis
 
