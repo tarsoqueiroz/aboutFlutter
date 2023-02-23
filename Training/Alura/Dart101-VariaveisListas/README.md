@@ -186,17 +186,66 @@ while que é o comando para começar a lógica de condição;
 
 ### Comentários
 
+- `Ctrl` + `Alt` + `L` - arruma o código
+- `//` or `/*` and `*/` - comentário
+
 ### Para saber mais: Null Safety
+
+> [Flutter - Null Safety in Dart](https://www.alura.com.br/artigos/flutter-null-safety)
 
 ### Documentação
 
-### Aplicação na vida real
-
-### Boas práticas
+- [Seção de documentação do site oficial do Dart](https://dart.dev/guides)
+- [Seção Exemplos da linguagem](https://dart.dev/samples)
+- [Built-in types](https://dart.dev/guides/language/language-tour#built-in-types)
 
 ### Projeto final do curso
 
+> [GitHub o projeto deste curso](https://github.com/alura-cursos/dart-primeiros-passos)
+
 ### O que aprendemos?
+
+- **Adicionar Comentários**
+  - Usar comentários é muito importante para manter seu código organizado, além de melhorar o entendimento para qualquer um que deseje estudá-lo no futuro. Aprendemos a usar comentários de linhas simples com `//` e comentários de linhas múltiplas com `/* */`. Vimos também um segundo tipo de comentário muito usado para documentação de códigos, pois tem uma cor distinta (verde), nesse caso, usamos `///` para linhas simples e `/****/` para múltiplas linhas.
+- **Usar a Documentação Oficial**
+  - Iniciamos nossa jornada de explorar o Dart usando a documentação oficial disponível no site do Dart. Nosso primeiro contato foi importante para começarmos a perder o medo de usar a documentação. No futuro, ela será nossa melhor amiga para entender conceitos e problemas mais complexos.
 
 ### Conclusão
 
+Parabéns! Vocês concluíram o curso de Dart: primeiros passos. Agora eu estou aqui para revisar com vocês tudo o que aprendemos, para notarem o quanto evoluíram do começo do curso até este momento.
+
+Nós aprendemos porque usar o Dart e onde programar. Descobrimos o que são as IDEs e SDKs. Começamos a explorar as ferramentas e conhecemos a função main(){}, que é a função principal, onde escrevemos o nosso código para o Dart conseguir ler.
+
+Estudamos sobre a função print(), que imprime no Console as respostas que queremos. Em seguida, exploramos os objetos em Dart, que são as variáveis.
+
+Vimos que existem vários tipos de variáveis. Elas podem ser números inteiros (int), como a idade, ou doubles, como a altura. Variáveis também podem ser booleanas (bool), que são de verdadeiro ou falso, como definimos para o nosso geek.
+
+Depois começamos a testar as strings, que permitem a criação e a concatenação de frases. Além disso, vimos que é possível colocar informações de objetos dentro das frases do tipo string, como fizemos na frase.
+
+Em seguida, começamos a ver listas únicas, que recebem dados com o mesmo tipo de valor, e listas dinâmicas, que aceitam vários tipos de objetos.
+
+Analisamos os objetos que podem e não podem mudar. Conhecemos os objetos constantes (const), que é o caso da string nome, e os objetos finais (final), como a string apelido.
+
+Exploramos também os laços de repetição, começando pelo if/else, que nos ajuda a escolher em que parte do nosso código a ação será executada. Aprendemos também o for, para criarmos loops com uma quantidade limitada de repetições.
+
+Além disso, estudamos o while, para quando não sabemos previamente a quantidade de loops, mas ainda é precisamos criar uma repetição. Aproveitamos para conhecer o do/while, que deixamos em cinza por não estarmos usando no nosso código. A diferença é que ele executa primeiro e analisa depois.
+
+Depois estudamos um pouco sobre boas práticas no Dart. Começamos a aprender sobre comentários. Temos os comentários cinza para as pessoas que lerem nosso código entenderem com facilidade o que estamos fazendo.
+
+É muito importante usar as boas práticas para conseguirmos trabalhar com outras pessoas no futuro, porque não é bom nem para nós, nem para as outras pessoas, termos um código muito bagunçado.
+
+Descobrimos também os comentários de documentação, que têm uma coloração em um tom de verde.
+
+Analisamos a documentação do Dart para entendemos como consultá-la, caso tenhamos alguma dúvida simples ou queiramos relembrar algo. Descobrimos que a documentação deve funcionar como a nossa fonte de informação primária, e que vamos usá-la cada vez mais.
+
+Posteriormente, mostrei para vocês uma aplicação de vida real para perceberem que conseguimos analisá-la com os conhecimentos do curso. Sabemos que cada nome no aplicativo é um item da lista de pessoa, porque aprendemos sobre Listas.
+
+Quando eu clico no meu nome, temos várias informações sobre mim, que são: "Nome", "Altura", que é um valor double, "Apelido", "Idade", que é um valor inteiro, "Geek", que é um booleano" e "Energia", que é consumida ao apertar o botão "Fazer Exercício!". Isso acontece devido a uma repetição que eu criei, assim como ensinei a vocês.
+
+Eu não mostrei para vocês como criar um aplicativo como esse, porque este não é um curso de Flutter. Ainda estamos entendendo a linguagem do Dart.
+
+Este curso permite que, ao navegarem no celular de vocês, consigam abrir o WhatsApp e reconhecer as strings. Vocês conseguem imaginar o que seria um booleano no Instagram. Assim, cada vez mais, vocês conseguem explorar a linguagem do Dart para, no futuro, criar aplicações incríveis.
+
+Então eu estou muito orgulhoso do quanto vocês conseguiram aprender. Espero que tenham gostado deste curso, porque eu amei fazê-lo para vocês.
+
+Vou pedir para deixarem um comentário quando concluírem e darem uma nota justa. Contem para nós o que fez vocês se encantarem ou se algo deixou vocês desconfortável. Estamos sempre buscando melhorar os nossos cursos e os comentários de vocês sempre ajudam.
