@@ -118,7 +118,7 @@ E esse é apenas o início do nosso curso. Se tiver dúvidas, não deixe de apar
 
 ## Funções e Escopo
 
-### Projeto da aula anterior
+### Projeto da aula 1
 
 Caso queira, você pode baixar o [projeto do curso](https://github.com/alura-cursos/dart-orientacao-objetos/archive/refs/heads/aula01.zip) no ponto em que paramos na aula anterior.
 
@@ -409,29 +409,190 @@ Concluímos a Aula 2!
 
 ## Classe
 
-### Projeto da aula anterior
+### Projeto da aula 2
 
-### O que é uma Classe?
-
-### Propriedades
+Caso queira, você pode baixar o [projeto do curso](https://github.com/alura-cursos/dart-orientacao-objetos/archive/refs/heads/aula02.zip) no ponto em que paramos na aula anterior.
 
 ### Quando usar Classes?
 
-### Construtor
+Agora que aprendemos como criar uma classe no Dart, podemos usá-la ao nosso favor para resolver problemas no dia a dia de trabalho!
+
+Quais dos seguintes problemas a seguir são resolvidos pela ideia de classe?
+
+- Quando queremos testar se alguma condição é verdadeira ou falsa.
+- Quando queremos isolar um trecho de código que faz uma operação que vai se repetir várias vezes.
+- Quando queremos repetir várias vezes um trecho de código.
+- **Quando queremos representar objetos ou um conceitos similares, com suas características e ações, para podermos usá-lo várias vezes.**
+- *Perfeito! Diferentemente de uma função, a classe também pode armazenar características para um objeto, além de poder executar várias ações.*
 
 ### Para saber mais: outros Construtores
 
-### Métodos
+Você sabia que é possível personalizar seus construtores e ter mais de um construtor por classe?
+
+E, além disso, esses construtores podem ser nomeados para que a pessoa que for usar a classe escolha qual construtor faz mais sentido para ela? Sim! Tudo isso é possível! Existem mais tipos de construtores.
+
+A forma de fazer um construtor que aprendemos em vídeo é o jeito mais rápido, simples e direto de criar um construtor em Dart, um que apenas inicializa as propriedades usando parâmetros posicionais obrigatórios:
+
+```dart
+class Fruta{
+  String nome;
+  String cor;
+
+  Fruta(this.nome, this.cor);
+}
+```
+
+Podemos criar um novo construtor (agora um construtor nomeado) se, por exemplo, quisermos usar apenas Parâmetros Nomeados! Basta seguir a seguinte estrutura:
+
+```dart
+class Fruta{
+  String nome;
+  String cor;
+
+  Fruta(this.nome, this.cor);
+
+  Fruta.nomeados({required this.nome, required this.cor});
+}
+```
+
+Note que os construtores são independentes. Ou seja, na hora que você vai criar um objeto usando essa classe, você só vai poder usar um dos construtores. Dito isso, é importante notar que todo construtor precisa preencher as propriedades que não podem ser nulas, daí usamos o required no nosso construtor .nomeados.
+
+No código abaixo, vemos como inicializar objetos diferentes usando cada um dos nossos construtores:
+
+```dart
+main() {
+  Fruta laranja = Fruta("Laranja", "Verde"); // Criando o objeto com o construtor padrão
+  Fruta uva = Fruta.nomeados(nome: "Uva", cor: "Roxo"); // Criando o objeto com o construtor nomeado
+}
+```
+
+Além de inicializar as propriedades, também podemos executar algumas operações durante o construtor. Para fazer isso, basta criá-lo com uma estrutura similar a da criação de uma função:
+
+```dart
+class Fruta{
+  String nome;
+  String cor;
+
+  Fruta(this.nome, this.cor);
+
+  Fruta.nomeados({required this.nome, required this.cor});
+
+  Fruta.minusculas(this.nome, this.cor){
+    nome = nome.toLowerCase();
+    cor = cor.toLowerCase();
+  }
+}
+```
+
+No construtor acima nomeado minusculas, após receber por parâmetro as informações que preencherão as propriedades, usamos o toLowerCase() em cada uma delas para que o conteúdo textual se torne minúsculo. Esse é só um exemplo, e as mais diversas manipulações podem ser feitas nesse tipo de construtor.
+
+Pronto! Agora podemos fazer operações no nosso próprio construtor, e elas acontecerão durante a inicialização do objeto (caso ele seja inicializado usando esse construtor).
 
 ### Fazendo jogos
 
+Você está desenvolvendo uma classe que vai representar a heroína de um jogo de ação. Essa heroína tem as seguintes características:
+
+- **Nome;**
+- **Pontos de Vida;**
+- **Pontos de Magia;**
+- **Velocidade;**
+- **Dano de Ataque; e**
+- **Se está viva ou não.**
+
+Além disso, ela tem as seguintes ações: **andar, atacar, usar magia**.
+
+Quais das classes a seguir melhor representaria, em Dart, nossa heroína?
+
+```dart
+class Heroine{
+String nome;
+int pontosVida;
+int pontosMagia;
+double velocidade;
+double danoAtaque;
+bool? isViva;
+
+Heroine({required this.nome, required this.pontosVida, required this.pontosMagia, required this.danoAtaque, required this.velocidade, this.isViva});
+
+void atacar(){...}
+void andar(){...}
+void usarMagia(){...}
+}
+```
+
+- *Perfeito! Poderíamos não usar parâmetros nomeados, porém, se escolhemos usá-los, é necessário usar o modificador required para todos os parâmetros que apontam para propriedades que não podem ser nulas.*
+
+```dart
+class Heroine{
+String nome;
+int pontosVida;
+int pontosMagia;
+double velocidade;
+double danoAtaque;
+bool? isViva;
+
+void atacar(){...}
+void andar(){...}
+void usarMagia(){...}
+}
+```
+
+```dart
+class Heroine{
+String nome;
+int pontosVida;
+int pontosMagia;
+double velocidade;
+double danoAtaque;
+bool? isViva;
+
+Heroine({this.nome, this.pontosVida, this.pontosMagia, this.danoAtaque, this.velocidade, this.isViva});
+
+void atacar(){...}
+void andar(){...}
+void usarMagia(){...}
+}
+```
+
+```dart
+class Heroine{
+String nome;
+int pontosVida;
+int pontosMagia;
+double velocidade;
+double danoAtaque;
+bool? isViva;
+
+Heroine(this.nome, this.pontosVida, this.pontosMagia, this.danoAtaque, this.velocidade, {this.isViva});
+
+void atacar(){...}
+void andar(){...}
+void usarMagia(){...}
+}
+```
+
+- *Perfeito! Usamos nesse caso Parâmetros Posicionais Obrigatórios, para obrigar a pessoa que vai usar essa classe a passar as informações das propriedades que não podem ter valores nulos.*
+
 ### Faça como eu fiz
 
-### O que aprendemos?
+Chegou a hora de você seguir todos os passos realizados pela gente durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você execute o que foi visto nos vídeos para poder continuar com a próxima aula.
+
+### O que aprendemos na aula 3?
+
+Muito bom! Você chegou ao final de mais uma aula e o que aprendemos?
+
+- **O que é uma Classe:**
+  - Classes são os moldes que usamos para construir e representar coisas do mundo real. A partir desses moldes, podemos construir objetos específicos e com características semelhantes. Falando de forma mais técnica, criar uma classe é uma forma modularizada e produtiva de escrever código. Nelas, conseguimos representar as características de objetos através das Propriedades e suas ações através dos métodos.
+- **O que são as Propriedades de uma Classe:**
+  - Vimos que as propriedades de uma classe são as características (informações) que desejamos registrar sobre os objetos que serão gerados por essa classe. Aprendemos que algumas informações podem ser informadas já na criação da classe, mas outras precisarão vir externamente via Construtor.
+- **O que é o Construtor:**
+  - Aprendemos também que Construtores são como aquele “check-list” de passos a serem tomados antes de começar uma viagem: é o método que será executado assim que um objeto dessa classe for criado. A sua principal tarefa normalmente é inicializar as Propriedades, mas os Construtores também podem executar ações iniciais que a classe possa demandar.
+- **O que são Métodos:**
+  - Por fim, vimos que os Métodos são como funções dentro de uma classe e determinam os comportamentos que os objetos que serão gerados por essa classe terão.
 
 ## Herança
 
-### Projeto da aula anterior
+### Projeto da aula 3
 
 ### O que é Herança?
 
@@ -445,7 +606,7 @@ Concluímos a Aula 2!
 
 ### Faça como eu fiz: Classes e heranças
 
-### O que aprendemos?
+### O que aprendemos na aula 4?
 
 ## Polimorfismo e Classes Abstratas
 
