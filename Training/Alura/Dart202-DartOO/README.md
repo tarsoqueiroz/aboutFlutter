@@ -225,8 +225,8 @@ Como desafio, sugerimos que crie uma função que receba todas as informações 
 
 Fique à vontade para escolher uma das formas de representar nossa fruta como uma String e crie a função!
 
-**Opinião do instrutor**.
-￼
+#### Opinião do instrutor
+
 Nessa atividade, o objetivo é que você treine a construção de funções e sua capacidade de resolver problemas. Assim, foi proposto que você desenvolvesse uma função com parâmetros, comportamentos e retorno definidos.
 
 Na programação, há várias formas de resolver um mesmo problema, e essas diversas soluções possuem semelhanças e diferenças. No nosso caso, os parâmetros e o tipo do retorno não mudam, mas todo o resto (configurações dos parâmetros, lógica na função) podem mudar.
@@ -594,36 +594,243 @@ Muito bom! Você chegou ao final de mais uma aula e o que aprendemos?
 
 ### Projeto da aula 3
 
-### O que é Herança?
+Caso queira, você pode baixar o [projeto do curso](https://github.com/alura-cursos/dart-orientacao-objetos/archive/refs/heads/aula03.zip) no ponto em que paramos na aula anterior.
 
 ### Para saber mais: Herança na Orientação a Objetos
 
-### Herança no Dart
+Herança é uma das principais características do Paradigma de Orientação a Objetos, mas por qual motivo? Reflita por um breve instante.
 
-### Membros da Herança
+Bem, o motivo é que a herança permite que classes compartilhem propriedades e métodos, através de (literalmente) "heranças". Pense que, em uma família, filhas e filhos podem herdar características e bens das suas mães e pais. Já na programação, é parecido: objetos podem herdar propriedades e métodos.
+
+O principal objetivo de usar herança é reaproveitar código. Isso é feito usando o conceito de “generalização” e de “especificação”, onde a classe-mãe (também chamada de superclasse) possui, em geral, propriedades e métodos mais generalistas, enquanto as classes-filha (também chamadas de subclasses) tornam as propriedades e métodos, recebidos pela superclasse, específicos para seus objetivos.
 
 ### Herdando métodos
 
+Aprendemos que a herança das classes nos permite herdar diversos parâmetros e até métodos! Conseguimos criar várias Classes de forma simples e até mais organizada. Criamos alguns objetos para observar a funcionalidade do nosso código:
+
+Alimento pao1 = Alimento('Pão', 5, 'Marrom');
+Legumes cenoura1 = Legumes('Cenoura', 120, 'Laranja', true);
+Fruta abacate1 = Fruta('Abacate', 250, 'Verde', 'Doce', 10);
+Nozes castanhaCaju1 = Nozes('Castanha de Caju', 4, 'Branco e Marrom', 'Doce', 15, 25);
+Citricas maracuja1 = Citricas('Maracujá', 120, 'Amarelo', 'Azedo', 6, 10);COPIAR CÓDIGO
+Você consegue identificar, qual das opções a seguir está errada e por quê?
+
+```dart
+pao1.printAlimento();
+cenoura1.cozinhar();
+abacate1.fazerSuco();
+castanhaCaju1.printAlimento(); 
+maracuja1.cozinhar(); 
+```
+
+Na verdade, o maracujá é uma “Fruta” e “Cítrica”, mas não pode usar o método “cozinhar()”, pois não possui herança direta com a Classe “Legumes”.
+
+- *Alternativa correta! Acertou! O objeto maracuja1 foi criado usando a classe Cítrica que recebe Frutase Alimento como extensão, porém em nenhum momento ela recebe a classe Legumes. A classe Legumes é responsável pelo método cozinhar().*
+
+```dart
+pao1.printAlimento();
+cenoura1.cozinhar();
+abacate1.fazerSuco();
+castanhaCaju1.printAlimento();
+maracuja1.existeRefri();
+```
+
+- Incorreto, porque Castanha de Caju não é ‘Alimento’, portanto não pode usar o método printAlimento().
+
+```dart
+pao1.printAlimento();
+cenoura1.cozinhar();
+abacate1.fazerSuco();
+```
+
+- Incorreto, pois não existe suco de abacate.
+
 ### Faça como eu fiz: Classes e heranças
 
+Durante essa aula, exploramos o conceito de herança. E agora é a sua vez de praticar e criar algumas novas classes que se relacionam como parentes, utilizando os conhecimentos da linguagem Dart!
+
+Em primeiro lugar, sugerimos que você crie 3 classes que se relacionem com, pelo menos, um método em cada classe. Em seguida, crie alguns objetos e utilize seus métodos específicos.
+
+Vamos te dar uma dicazinha: Relembre o que foi feito em vídeo. O resultado final deve se parecer com isso:
+
+![Resultado na tela](./imagens/imagem_fa%C3%A7acomoeufiz4.png)
+
+Vamos lá?
+
+Não se esqueça de compartilhar com a gente. Vamos adorar ver o seu resultado!
+
+#### Opinião do instrutor
+
+Nessa atividade, o objetivo é que você coloque a mão na massa e crie várias classes que se conectam e que possuem métodos particulares. Outro objetivo é criar objetos que utilizam esses métodos e ver, na prática, como podemos acessar métodos de outras classes que possuem a mesma herança.
+
+Como conseguimos fazer isso? Primeiro, devemos criar uma classe “Mãe”(com métodos!):
+
+```dart
+class Alimento {
+ String nome;
+ double peso;
+ String cor;
+ Alimento(this.nome, this.peso, this.cor);
+ void printAlimento() {
+   print('Este(a) $nome pesa $peso gramas e é $cor.');
+ }
+}
+```
+
+Em seguida, devemos criar algumas classes “Filhas” e extender a classe “Mãe”:
+
+```dart
+class Legumes extends Alimento{
+ bool isPrecisaCozinhar;
+
+ Legumes(String nome, double peso, String cor, this.isPrecisaCozinhar)
+     : super(nome, peso, cor);
+
+ void cozinhar() {
+   if (isPrecisaCozinhar) {
+     print('Pronto, o $nome está cozinhando!');
+   } else {
+     print('Nem precisa cozinhar!');
+   }
+ }
+}
+```
+
+Por fim, devemos criar nossos objetos e chamar os métodos para cada um deles! :)
+
+```dart
+Legumes mandioca1 = Legumes('Macaxeira', 1200, 'Marrom', true);
+Citricas limao1 = Citricas('Limão', 100, 'Verde', 'Azedo', 5, 9);
+mandioca1.printAlimento();
+limao1.printAlimento();
+mandioca1.cozinhar();
+//limao1.cozinhar(); // não funciona
+//mandioca1.fazerSuco(); // não funciona
+limao1.fazerSuco();
+```
+
 ### O que aprendemos na aula 4?
+
+Chegamos ao final de mais uma aula, e aprendemos sobre:
+
+- **O que é Herança:**
+  - Quanto mais complexo fica nosso código, mais classes precisamos criar, e fica muito evidente que muitos parâmetros e métodos se repetem entre classes. Para facilitar a criação de código e melhorar a performance da linguagem dart, temos a opção de adicionar herança às nossas classes! A herança nada mais é que a possibilidade de herdar dados e ações de outras classes já criadas, a fim de facilitar o entendimento e organização estrutural do nosso código.
+- **Como utilizar Herança no Dart:**
+  - A herança no dart é feita de uma maneira simples: primeiro, devemos criar a classe que será herdada, em seguida, criamos a classe que vai receber a herança. Depois, usamos a palavra extends para associar as duas Classes. Por fim, utilizamos o superpara pegar os dados herdados e utilizá-los na nossa Classe com herança.
+- **Métodos compartilhados:**
+  - Uma vez que temos múltiplas classes com herança, começamos a notar que os métodos de cada classe se relacionam da mesma forma. Classes que possuem algum nível de parentesco vertical (Mãe -> Filha) podem utilizar os métodos herdados. Porém, o inverso não é recíproco (Filha ->Mãe), nem mesmo o relacionamento horizontal (Irmã - Irmã) permite a utilização de métodos entre si.
 
 ## Polimorfismo e Classes Abstratas
 
 ### Projeto da aula anterior
 
-### O que é uma Classe Abstrata
+Caso queira, você pode baixar o [projeto do curso](https://github.com/alura-cursos/dart-orientacao-objetos/archive/refs/heads/aula04.zip) no ponto em que paramos na aula anterior.
 
 ### Classe Abstrata
 
-### Polimorfismo e Sobrescrita
+Uma vez que conhecemos o funcionamento da herança nas classes, abrimos caminho para entender melhor os contratos ou as famosas interfaces, chamadas no dart de classes abstratas. Essas Classes são simples moldes que indicam métodos obrigatórios para os objetos.
+
+Nós sabemos que cada fruta possui um modo de descascar diferente, não podemos simplesmente descascar uma laranja como descascamos uma banana.
+
+Pensando nisso, qual abordagem seria mais interessante para representar as diferentes formas de descascar uma fruta com o dart? Selecione a opção verdadeira abaixo:
+
+- Criar uma função externa a todas as Classes, chamada descascar, depois receber um parâmetro nessa função com uma subclasse de Fruta e, dependendo de qual subclasse seja, descascar de uma forma diferente.
+- Criar um método descascar na superclasse Fruta, daí, todo tipo de fruta que estender dessa classe terá esse método.
+- Criar um método descascar em cada subclasse de Fruta, e em cada escrever uma forma diferente de descascar a fruta.
+- **Criar uma classe abstrata e nela adicionar o método abstrato descascar, e fazer com que cada subclasse de Fruta esteja implementado essa classe abstrata.**
+  - *Correto! Dessa forma, você tem um “contrato” garantindo de que aquela subclasse precisa implementar o método descascar da forma que fizer mais sentido para ela.*
 
 ### Polimorfismo
 
+Quando estamos trabalhando com herança, nossas classes “filhas” recebem parâmetros e métodos das classes “mães”. E quando recebemos métodos que não estão completos ou que precisam ser alterados? Nesses casos, nós sobrescrevemos esses métodos, alterando eles usando o comando @override. A habilidade de alterar os métodos é chamada de polimorfismo.
+
+```dart
+class Nozes extends Fruta {
+ double porcentagemOleoNatural;
+ Nozes(String nome, double peso, String cor, String sabor,
+     int diasDesdeColheita, this.porcentagemOleoNatural)
+     : super(nome,peso,cor,sabor,diasDesdeColheita);
+ @override
+ void fazerMassa() {
+   print('Tirar a casca');
+   super.fazerMassa();
+}
+```
+
+Quando usamos Polimorfismo no código acima, podemos relatar que:
+
+Sugestão está nas respostas: `fazer.Massa() -> fazerMassa()`
+
+- O comando @override reescreve o método fazerMassa() de todas as classes que recebem esse método.
+- A classe Nozes está recebendo o método fazerMassa() diretamente da classe abstrata Bolo.
+- O comando super.fazerMassa() executa o método fazerMassa() da classe abstrata Bolo
+- **A classe Nozes está recebendo o método fazerMassa() diretamente da classe Fruta. O comando @override sobrescreve o método fazerMassa(), enquanto o comando super.fazerMassa() executa o método fazerMassa() da classe Fruta**
+  - *Alternativa correta!*
+
 ### Faça como eu fiz: Polimorfismo e Sobrescrita
+
+Exploramos os conceitos de abstrato e de polimorfismo nesta aula. Agora, proponho a você o seguinte desafio:
+
+Crie algumas novas classes para implementar e sobrescrever algumas delas, de acordo com seus desejos, seguindo as orientações:
+
+1. Crie uma classe abstrata com 3 métodos;
+1. Implemente a classe abstrata em uma de suas classes já existentes; e
+1. Defina as ações de cada método herdado.
+
+Compartilha seus resultados com a gente lá no fórum. Seu resultado pode ajudar outros alunos!
+
+#### Opinião do instrutor
+
+O objetivo dessa vez é que você crie uma classe abstrata e a implemente na sua classe desejada. Dessa forma, todas as classes que recebem sua classe terão os métodos da sua nova classe abstrata.
+
+Depois de criar a classe abstrata, vamos definir esses métodos e ver, na prática, como podemos alterar e sobrescrever esses métodos?
+
+Primeiro, devemos criar uma classe abstrata (com métodos!):
+
+```dart
+abstract class Bolo{
+ void separarIngredientes();
+
+ void fazerMassa();
+
+ void assar();
+}
+```
+
+Em seguida, devemos implementar em nossa classe desejada:
+
+class Fruta extends Alimento implements Bolo{…}COPIAR CÓDIGO
+Por fim, devemos definir as ações dentro do método.
+
+```dart
+@override
+void separarIngredientes() {
+ print('Catar a $nome');
+}
+@override
+void fazerMassa() {
+ print('Misturar a fruta com Farinha, açucar ovos...');
+}
+@override
+void assar() {
+ print('Colocar no forno');
+}
+```
+
+Caso veja necessidade, você pode sobrescrever os métodos herdados pelas classes “filhas”.
 
 ### Projeto de final do curso
 
-### O que aprendemos?
+Caso queira, você pode baixar aqui o [projeto completo](https://github.com/alura-cursos/dart-orientacao-objetos/archive/refs/heads/aula05.zip) implementado neste curso. Se preferir, você também pode acessar o repositório completo no [GitHub](https://github.com/alura-cursos/dart-orientacao-objetos/tree/main).
+
+### O que aprendemos na aula 5?
+
+Nesta aula, aprendemos sobre:
+
+- **O que são Classes Abstratas:**
+  - As Classes abstratas (conhecidas em outras linguagens como Interface) são como contratos pré-definidos. Elas são muito usadas para dar um caminho definido para todas as classes que a implementam. Ao criar uma classe abstrata, fazemos os seus métodos sem nenhuma ação, pois dessa forma, as ações são definidas apenas por aqueles que implementam a classe abstrata criada.
+- **Polimorfismo:**
+  - Agora, já sabemos extender uma classe (Mãe/Filha) e já sabemos implementar uma classe abstrata (Contrato), e começamos a notar que nem sempre os métodos herdados podem ser úteis a todo momento. Em alguns casos, precisamos alterar esses métodos sem comprometer outras classes, e para isso usamos a Sobrescrita com o comando @override. O Polimorfismo nada mais é que a habilidade das nossas classes de alterar um método recebido por herança.
+
 
 ### Conclusão
