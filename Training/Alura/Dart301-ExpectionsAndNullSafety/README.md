@@ -381,8 +381,6 @@ try{
   print("A heroína agora tem ${heroine.life} pontos de vida.");
 ```
 
-### Catch e os membros das Exceções
-
 ### Continuando o jogo com a Dandara
 
 Você aprendeu a capturar uma exceção com um objeto usando o catch, e Dandara lhe avisou que implementou mais algumas coisas na classe Heroine; a exceção HeroineIsPoisonedException agora possui dois membros:
@@ -481,15 +479,69 @@ Chegamos ao final da aula 2 e até aqui aprendemos conceitos muito importantes e
 
 Caso queira, você pode baixar o [projeto do curso](./resources/dart_exceptions-aula02.zip) no ponto em que paramos na aula anterior.
 
-### Lançando Exceções com Throw
-
 ### Para saber mais: mais informações sobre o Throw
 
-### Criando Exceções com Exception
+- **Lançando qualquer objeto**
+
+Se você veio de outras linguagens pode achar estranho o Dart permitir o lançamento de qualquer objeto. Isso facilita e acelera a escrita de código, mas a [própria documentação](https://dart.dev/guides/language/language-tour#throw) diz que um código de qualidade em ambiente de produção normalmente só lançam objetos de tipos que implementam Exception ou Error.
+
+- **Usando o Throw como uma expressão**
+
+Como lançar uma exceção com o throw é uma expressão (como o return), você pode lançar exceções em estruturas “arrows” =>, operadores ternários, e qualquer outro lugar que permita expressões. Veja o exemplo:
+
+```dart
+void distanceTo( Point other ) => throw UnimplementedError ();
+```
+
+No código acima, já que a função distanceTo não está implementada, é interessante gerarmos um erro caso alguém tente usá-la. Ao invés de abrir chaves e quebrar linhas para colocar apenas uma linha de throw podemos fazer isso como expressão usando a arrow.
 
 ### Para saber mais: Exceções com Checagem
 
-### Propriedades da SenderIdInvalidException
+Diferente de outras linguagens o Dart não dá a opção de criar Exceções com Checagem Obrigatória.
+
+Checagem obrigatória, ou “Checked Exceptions” (Exceções Checadas), são exceções que, ao serem lançadas em uma função, exigem que todo bloco de código que usar essa função deverá necessariamente implementar um try circundando a linha da chamada função ou acontecerá um erro em tempo de compilação.
+
+Leia com atenção os exemplos a seguir:
+
+- *Sem checagem obrigatória*
+
+```dart
+void playMusic(file pathMusic){
+    if (pathMusic.exists){
+        // Toca a música
+    }else{
+        throw PathNotExistsException();
+    }
+}
+
+void main(){
+    playMusic(); // Código funciona sem erros mesmo sem o try
+}
+```
+
+No exemplo acima, a chamada playMusic() aconteceria sem problemas, mesmo que a função possa levantar uma Exception e não haja um try para lidar com ela. É assim que Dart funciona atualmente.
+
+- **Com checagem obrigatória**
+
+```dart
+void playMusic(file pathMusic){
+    if (pathMusic.exists){
+        // Toca a música
+    }else{
+        throw PathNotExistsException();
+    }
+}
+
+void main(){
+    playMusic(); // Erro! É necessário circundar a linha com try
+}
+```
+
+No exemplo hipotético o próprio ambiente de desenvolvimento (IDE) acusaria um erro já que, se a PathNotExistsException é lançada em playMusic, toda chamada de playMusic deve ser cercada com um try que trate essa exceção.
+
+Como foi dito, Dart não possui Checked Exceptions, contudo essa é uma discussão presente na comunidade, afinal, existem muitas pessoas que, por exemplo, já solicitaram a adição dessa ferramenta no GitHub público da linguagem Dart (vantagens de uma linguagem de código aberto). Se for do seu interesse, recomendamos a leitura da thread no [GitHub do Dart](https://github.com/dart-lang/language/issues/984).
+
+E você: qual sua opinião sobre o assunto? Já pensou em argumentos a favor da implementação de Checked Exceptions no Dart? Convido você a deixar sua opinião no nosso fórum ou no nosso canal do Discord! Vamos adorar saber sua opinião e você também pode ler e interagir com a opinião de outras pessoas.
 
 ### Propriedades das demais Exceções
 
@@ -497,46 +549,243 @@ Caso queira, você pode baixar o [projeto do curso](./resources/dart_exceptions-
 
 ### Usando membros nas Exceções
 
-### Assert: o que é e quando utilizar
+Aprendemos que como são classes (que apenas implementam a classe abstrata Exception) as nossas exceções personalizadas podem ter membros, ou seja, propriedades e métodos.
+
+Esses membros podem ser acessados através da captura do objeto exceção usando o catch da estrutura try-on-catch-finally. Isto posto, leia com atenção as alternativas a seguir, e indique quais delas representam melhor a finalidade de adicionar membros a uma exceção:
+
+- **Oferecer operações que possam facilitar o entendimento do que gerou a exceção.**
+  - *Perfeito! Com o uso de métodos podemos fazer operações, como testes, cálculos e comparações que podem complementar o entendimento e a resolução da exceção.*
+- É importante criar propriedades, pois caso a exceção não seja tratada os membros serão mostrados na Mensagem de Erro, e isso facilitará a correção do problema.
+- **Transmitir informações mais detalhadas sobre a exceção que permitam identificar como e porque ela ocorreu.**
+  - *Muito bem! Com o uso de propriedades podemos entregar para quem capturar a exceção mais informações além do próprio nome da exceção.*
+- É necessário, ao menos, sobrescrever o toString para que a exceção personalizada seja capturada na estrutura try-on-catch-finally.
+- Se faz necessário criar membros para uma exceção pois, como ela é uma classe, não podemos criar essa estrutura vazia.
 
 ### Quando usar o Assert?
 
+Aprendemos que o assert é um comando simples de ser utilizado e bastando a chamada de uma linha temos um teste que funcionará apenas no ambiente de desenvolvimento, não levantando o AssertionError no ambiente de produção. Com isso em mente, quais das situações a seguir são ideais para o uso do Assert?
+
+- **Quando queremos testar internamente em um construtor de uma classe se algum dado foi passado de forma inesperada.**
+  - *Uhuu, muito bem! Existem situações onde você estará programando instâncias de classes que, dada circunstâncias externas, poderão não ser instanciadas com os valores esperados. Nesses casos, o assert é perfeito para fazer verificações em ambiente de desenvolvimento sem gerar erro na aplicação final.*
+- Quando eu quero levantar uma exceção, mas não quero ter o trabalho de criar uma exceção personalizada.
+- Quando eu preciso que o depurador pare em uma determinada linha e me mostre todas as informações do meu programa naquele momento.
+- Quando há situações no nosso modelo de negócios ou resolução de problemas que fogem do “caminho feliz”, isto é, que não seguem a situação ideal.
+- **Quando queremos fazer uma verificação no código que servirá apenas para testes internos, não comprometendo diretamente a execução do programa quando publicado.**
+  - *Perfeito! Sendo o Assert um comando que funciona apenas no ambiente de desenvolvimento, ele é ideal para fazer verificações e testes que não comprometam o código em ambiente de produção.*
+
 ### Para saber mais: leituras sobre Exceções
+
+Finalizamos nosso conteúdo a respeito de Exceções, e seguindo com nosso ímpeto de incentivar a leitura da documentação, deixamos uma lista de recomendações para leitura (toda em inglês) a respeito do tema:
+
+- [Language Tour | Dart](https://dart.dev/guides/language/language-tour#exceptions) - Exceptions - O “Language Tour” é um documento que reúne o mínimo que você precisa saber sobre os mais importantes assuntos da linguagem. E no link que disponibilizamos você encontra a sessão que fala a respeito de Exceções;
+- [Language Tour | Dart](https://dart.dev/guides/language/language-tour#assert) - Assert - Texto do “Language Tour” sobre os Asserts;
+- [Dart-Core | Exception Class](https://api.dart.dev/stable/2.17.3/dart-core/Exception-class.html) - Documentação da classe Exception presente na linguagem, onde você encontra uma documentação mais técnica que explica questões como Heranças, Interfaces, Propriedades, Contrutores e Métodos da classe, que no caso é a Exception;
+- [Dart-Core | Erro Class](https://api.dart.dev/stable/2.17.3/dart-core/Error-class.html) - Documentação da classe Error presente na linguagem.
 
 ### Desafio: destinatário autenticado
 
-### Faça como eu fiz na aula 3
+Agora que aprendemos como criar nossas próprias exceções personalizadas, que tal você criar uma delas para fixar seus conhecimentos?
+
+No exemplo utilizado nas aulas verificamos se o remetente está autenticado. Aqui, modifique seu código para verificar também se o destinatário está autenticado e mostrar uma mensagem amigável na tela caso não esteja. Para isso, você precisará:
+
+- Criar uma exceção (algo como ReceiverNotAuthenticatedException) no arquivo bank_controller_exceptions.dart;
+- Adicionar a lógica de testagem na classe BankController;
+- Adicionar a captura da exceção no código da função main.
+
+#### Opinião do instrutor
+
+Para resolver esse problema, começaremos criando uma nova classe no arquivo `bank_controller_exceptions.dart`:
+
+```dart
+class ReceiverNotAuthenticatedException implements Exception {
+  static const String report = "ReceiverNotAuthenticatedException";
+
+  String idReceiver;
+  late String message;
+  ReceiverNotAuthenticatedException({required this.idReceiver}) {
+    message = "$report\nID Sender: $idReceiver";
+  }
+
+  @override
+  String toString() {
+    return message;
+  }
+}
+```
+
+Seguiremos o padrão de implementação que definimos, com um report que carrega o nome da exceção, a informação do ID do Destinatário, e uma mensagem que será construída no construtor e enviada no toString.
+
+Depois precisamos modificar o BankController para fazer essa verificação, o melhor momento é justamente logo após fazer a verificação de autenticação do Remetente:
+
+```dart
+// Verificar se o remetente está autenticado
+    if (!accountSender.isAuthenticated) {
+      throw SenderNotAuthenticatedException(idSender: idSender);
+    }
+
+    // Verificar se o destinatário está autenticado
+    if (!accountReceiver.isAuthenticated) {
+      throw ReceiverNotAuthenticatedException(idReceiver: idReceiver);
+    }
+```
+
+Por fim, devemos adicionar a captura dessa exceção no código da main, o melhor lugar também é logo após a captura da exceção do Remetente não autenticado:
+
+```dart
+// Fazendo transferência
+  try {
+    bankController.makeTransfer(
+        idSender: "Kako", idReceiver: "Ricarth", amount: 200);
+
+    print("Transação concluída com sucesso");
+  } on SenderIdInvalidException catch (e) {
+    print(e.message);
+  } on ReceiverIdInvalidException catch (e) {
+    print(e);
+  } on SenderNotAuthenticatedException catch (e) {
+    print(e);
+  } on ReceiverNotAuthenticatedException catch (e) {
+    print(e);
+  } on SenderBalanceLowerThanAmountException catch (e) {
+    print(e);
+  } catch (e) {
+    print("Erro desconhecido.");
+  }
+```
+
+E pronto! Se quiser, teste mudar o argumento isAuthenticated para false na conta “Ricarth”, e cheque a mensagem mostrada!
+
+Se desejar fazer o download do repositório com esse desafio implementado, [clique aqui](https://github.com/alura-cursos/dart_exceptions/archive/dafa278a25ee2d570cf3b35bbd90487722f270f3.zip).
 
 ### O que aprendemos na aula 3?
+
+Muito bom! Você chegou ao final de mais uma aula e o que aprendemos?
+
+- **Como lançar uma Exceção:**
+  - Aprendemos que com a palavra-chave throw podemos lançar uma exceção, ou seja, parar a execução do código naquela sub-rotina (função) e enviar um objeto-exceção para quem estiver abaixo na Pilha de Execução. Se essa exceção lançada passar por todos os quadros da pilha sem ser tratado, ela terminará a execução do código com uma saída de insucesso. E abordamos que o Dart permite enviarmos qualquer objeto no throw, mas que códigos de qualidade, principalmente em ambiente de produção, lançam apenas objetos de tipos que implementam Exception ou Error.
+- **Como criar uma exceção personalizada:**
+  - Aprendemos que o processo de criar uma exceção personalizada consiste basicamente em criar uma classe que implementa a classe abstrata Exception, e que, uma vez criada, podemos lançar nossas exceções com o throw e capturá-las com a estrutura try-on-cath-finally.
+- **Como criar e usar propriedades e métodos para nossas Exceções Personalizadas:**
+  - Também aprendemos que, como uma classe, podemos criar membros (propriedades e métodos) para uma Exceção, que estarão disponíveis para acesso ao capturarmos nossa Exceção com o catch.
+- **O que é e como usar o Assert:**
+  - Por fim, aprendemos que podemos usar o comando assert para fazer verificações apenas em ambiente de desenvolvimento que tenha o comando de terminal --enable-asserts ativado. Essa ferramenta é útil para fazer testes com o AssertionError, que para a execução do nosso programa, mas só apenas em tempo de desenvolvimento, não afetando o código que chegará à pessoa usuária.
+
+Concluímos a nossa terceira aula!
+
+Parabéns! Você já avançou bastante e já estamos caminhando para o fim do nosso curso. Volte nessa aula sempre que achar necessário para reforçar e se tiver dúvidas, não deixe de aparecer lá no fórum para conversar com a gente e com outros cursistas.
 
 ## Segurança de Nulos (Null Safety)
 
 ### Projeto da aula 3
 
-### O que é um nulo?
+Caso queira, você pode baixar o [projeto do curso](./resources/dart_exceptions-aula03.zip) no ponto em que paramos na aula anterior.
 
 ### Para saber mais: Factory e External
 
-### Propósito e princípios do Null Safety
+> **Nota:** *Esse Para Saber Mais lida com um assunto específico e avançado da programação com Dart, se você não entender de primeira o que estamos conversando, não tem problema, volte quando se sentir confortável.*
+
+Na aula que acabou de assistir, quando entramos no arquivo do código-fonte da classe Null, você pode ter notado dois termos sobre os quais nunca conversamos e vale a menção, já que foram mostrados: o Factory e o External.
+
+```dart
+class Null {
+  factory Null._uninstantiable() {
+    throw UnsupportedError('class Null cannot be instantiated');
+  }
+
+  external int get hashCode;
+
+  /// Returns the string `"null"`.
+  String toString() => "null";
+}
+```
+
+Começando com o factory, essa é uma palavra-chave usada para implementar um construtor que nem sempre cria uma instância de sua classe. Por exemplo, um construtor factory pode retornar uma instância de um cache ou pode retornar uma instância de um subtipo. Outro caso de uso para construtores factory é inicializar uma variável final usando uma lógica que não pode ser tratada na lista de inicializadores.
+
+Se for do seu interesse saber mais sobre o factory, recomendamos a leitura (em inglês) do trecho que fala sobre essa palavra chave no [Language Tour do Dart](https://dart.dev/guides/language/language-tour#factory-constructors).
+
+Já o external é uma palavra chave que gera um função abstrata em uma classe que não necessariamente é abstrata. Basicamente diz que o corpo da função será definido em um local externo.
+
+Se desejar se aprofundar mais sobre external, recomendamos a leitura (em inglês) da documentação para desenvolvimento do Dart: [DartLangSpecDraft - 9.4 External Functions](https://spec.dart.dev/DartLangSpecDraft.pdf#External%20Functions).
 
 ### Para saber mais: testando o Null
 
-### Gerando um ambiente de simulação
+Para complementar seu conhecimento, teste o comportamento de referência nulas em uma aplicação só de estudos.
+
+Crie variáveis com ?, como Account? e não a inicialize (o que é similar a inicializar com um null).
+
+Então, chame um membro qualquer usando o operador de null check, o bang !. Rode o programa e perceba que o erro CastError será apresentado com a seguinte mensagem: “Null check operator used on a null value”, o que lhe indica que você usou o operador em uma variável que era nula.
+
+Usar o bang ! em um código real é uma má prática e deve ser evitado, mas você pode sempre utilizar dessa ferramenta para testar código durante seus estudos e ganhar segurança na sua programação em Dart.
 
 ### Faça como eu fiz: detalhando a simulação
 
-### Formas seguras de lidar com nulos
+Fora do ambiente de estudos, entrando em situações reais de código, o caso que vai ser mais comum de se necessitar usar uma variável ou propriedade que pode ser nula é quando esperamos uma informação que vem de um ambiente externo (como a Internet) e, por infindáveis motivos, essa informação pode jamais chegar. Nosso programa não pode quebrar por causa disso, ele deve estar preparado para continuar funcionando mesmo com as informações incompletas.
 
-### Propriedades opcionais
+Como não é o objetivo desse curso usar uma Web API para receber informações da Internet, ou consultar a Memória Secundária para obter dados de um banco de dados, criamos uma simulação que, a cada vez que rodarmos o programa, poderá gerar uma variável nula ou uma não nula, como poderia acontecer em uma situação real.
+
+Agora é a sua vez! Baseado no que aprendemos até aqui, você terá que usar o método .nextInt(), da classe Random, da biblioteca dart:math para criar um código que, a cada vez que rodamos, tem 50% de chance de gerar uma Account nula, e 50% de chance de gerar uma Account inicializada.
+
+#### Opinião do instrutor
+￼
+Vamos analisar atentamente o código para entender como fazer esse código:
+
+```dart
+  Account? myAccount;
+
+  // Simulando uma comunicação externa que pode ou não preencher myAccount
+  Random rng = Random();
+  if (rng.nextInt(10) % 2 == 0) {
+    myAccount =
+        Account(name: "Ricarth Lima", balance: 300, isAuthenticated: true);
+  }
+  print(myAccount.runtimeType);
+```
+
+Na linha Account? myAccount, apenas declaramos uma variável que pode ou não ser nula do tipo Account. Como ela não foi inicializada na declaração, até aí ela é nula.
+
+Depois em Random rng = Random() instanciamos um objeto do tipo Random da biblioteca dart:math que é nativa do Dart. Esse objeto pode gerar vários tipos de valores aleatórios com seus métodos.
+
+Logo em seguida, usamos os rng.nextInt(10) para gerar um número inteiro de 0 a 10 aleatoriamente. Todas as vezes que esse programa rodar, um número aleatório diferente será gerado, e esse é o motor do realismo da nossa situação.
+
+Na mesma linha pegamos o resto da divisão do número gerado e comparamos com zero, basicamente, testamos se ele é par. Caso seja par, entramos no if e nele inicializamos nossa variável com uma Account. Caso seja ímpar não entramos no if e nossa variável continua com um nulo.
+
+Por fim, usamos print(myAccount.runtimeType) para mostrar na tela o tipo da variável, já que é impossível prever qual tipo será (Account ou Nulo) em tempo de compilação, apenas em tempo de execução.
+
+É claro que em uma situação real, as chances seriam bem mais favoráveis do que 50% para perda de alguma informação, mas com essa simulação podemos testar dinamicamente e em tempo de execução se vamos de fato conseguir lidar com nulos de forma segura!
+
+Gostou? Comenta lá no fórum o que achou e se ficou com alguma dúvida. Vamos adorar interagir com você.
 
 ### Sobre a referência nula
 
+Aprendemos que o Dart oferece bastante suporte para evitar o problema de referências nulas. Considerando tudo que foi apresentado, leia com atenção as alternativas a seguir e marque as que melhor representam o que nós, como pessoas programadoras, devemos fazer para lidar com nulos de forma segura.
+
+- Ao escrever código com Dart não recebemos Erros ou Exceptions geradas por causa de referências nulas.
+- Não devemos escrever código com tipos que podem receber referências nulas.
+- **Para inicializar uma variável com null, ela precisa ser nullable (que pode ser nula).**
+  - *Exatamente! Como vimos, existe o universo de todos os tipos e esses naturalmente não podem receber nulos. Usamos a ? para permitir que um tipo possa receber null, ou seja, se torne nullable.*
+- **Se durante o seu código o Dart Analyzer (automatização que verifica seu código enquanto você escreve) nota que você está tentando acessar diretamente uma referência que pode ser nula, o código não compila.**
+  - *Perfeito! O Dart Analyzer tem inteligência o suficiente para notar a tentativa de acesso a uma referência que pode ser nula e que, por consequência, pode gerar um erro em tempo de execução (Runtime). Nesse caso o Ambiente de Desenvolvimento (IDE) vai acusar um erro mesmo antes de rodar.*
+- Podemos usar a ? no termo var durante a declaração de uma variável para definir que um tipo poderá receber nulo, mesmo que não conheçamos ele ainda.
+
 ### Projeto de final do curso
+
+Deixamos para você o Projeto completo implementado do curso para você baixar [aqui](./resources/dart_exceptions-aula04.zip). E se preferir, você também pode acessar o repositório completo no [GitHub](https://github.com/alura-cursos/dart_exceptions).
 
 ### O que aprendemos na aula 4?
 
+Parabéns! Você chegou ao final da nossa última aula. Vamos relembrar o que aprendemos:
+
+- **O que é um Nulo:**
+  - Aprendemos que no Dart, o Nulo é um tipo não instanciável e representa a ausência de valor. Aprendemos também que no passado, o null era um subtipo de todos os tipos, mas desde a implementação do Null Safety na linguagem, o Null passou a ser um tipo a parte de todos, podendo agora uma variável ou propriedade receber ou apenas valores não nulos, ou tanto valores nulos quanto não nulos.
+- **O problema que o Null Safety resolve:**
+  - Aprendemos que o Null Safety resolve o problema das Referências Nulas, ou seja, de tentarmos acessar membros de variáveis que estão com valores nulos, evitando assim erros em tempo de execução.
+- **Como lidar com nulos de uma forma segura:**
+  - Por fim, aprendemos que existem algumas formas seguras de se lidar com nulos e a principal delas é testando se a variável contém ou não um valor nulo. Esse teste com if-else garante, em tempo de execução, que a variável não será nula. Também podemos usar a chamada segura, ou Safe Call, utilizando a ? quando queremos tentar acessar um membro de uma classe, e não uma variável local.
+
+E, assim, encerramos a Aula 4, onde falamos sobre um dos assuntos mais importantes para você que pretende se destacar na área e se tornar uma pessoa programadora de Dart e Flutter com diferencial no mercado!
+
 ### Recados finais
 
-### Conclusão
+Parabéns, você chegou ao fim de mais um curso! Estamos muito felizes por ter concluído essa jornada e esperamos que tenha sido uma experiência encantadora.
 
-### Créditos
+Dart e Flutter são tecnologias incríveis que estão em crescimento e nós, a comunidade, somos parte essencial disso! Então comente nas suas redes sociais que você terminou esse curso e o que está achando dessa tecnologia! Se quiser, marque @aluraonline e/ou @ricarthlima que vai ser um prazer ver seu progresso! Não se esqueça de conversar com outras pessoas que estão cursando Dart lá pelo [Discord da Alura](https://discord.gg/SK9bj7hEYD), pois também é um espaço para fazer amigos e amigas e crescer a nossa comunidade!
